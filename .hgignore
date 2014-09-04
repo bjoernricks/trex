@@ -1,0 +1,7 @@
+syntax: glob
+
+*.pyc
+*~
+*.sqlite3
+trex/settings.py
+secret.key
