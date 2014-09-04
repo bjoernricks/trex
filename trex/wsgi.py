@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
+#
+# (c) 2014 Bjoern Ricks <bjoern.ricks@gmail.com>
+#
+# See LICENSE comming with the source of 'trex' for details.
+#
 """
 WSGI config for trex project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/

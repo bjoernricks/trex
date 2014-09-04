@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+#
+# (c) 2014 Bjoern Ricks <bjoern.ricks@gmail.com>
+#
+# See LICENSE comming with the source of 'trex' for details.
+#
+
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
 from django.db import models
