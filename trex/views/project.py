@@ -7,9 +7,9 @@
 
 from rest_framework import generics
 
-from trex.models.project import Project
+from trex.models.project import Project, Entry
 from trex.serializers import (
-    ProjectSerializer, ProjectDetailSerializer)
+    ProjectSerializer, ProjectDetailSerializer, EntryDetailSerializer)
 
 
 class ProjectListCreateAPIView(generics.ListCreateAPIView):
@@ -22,3 +22,9 @@ class ProjectDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Project.objects.all()
     serializer_class = ProjectDetailSerializer
+
+
+class EntryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = Entry.objects.all()
+    serializer_class = EntryDetailSerializer
