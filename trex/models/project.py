@@ -24,7 +24,7 @@ class Project(models.Model):
         ordering = ("name", "active")
 
     def get_absolute_url(self):
-        return reverse_lazy("project-details", kwargs={"pk": self.id})
+        return reverse_lazy("project-detail", kwargs={"pk": self.id})
 
 
 class Entry(models.Model):
