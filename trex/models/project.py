@@ -41,6 +41,9 @@ class Entry(models.Model):
     class Meta:
         ordering = ("date", "created")
 
+    def get_absolute_url(self):
+        return reverse_lazy("entry-detail", kwargs={"pk": self.id})
+
 
 class Tags(models.Model):
 
