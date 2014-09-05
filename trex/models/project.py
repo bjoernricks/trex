@@ -30,14 +30,16 @@ class Project(models.Model):
 class Entry(models.Model):
 
     project = models.ForeignKey(Project, related_name="entries")
-    start_time = models.DateTimeField()
-    stop_time = models.DateTimeField()
+    date = models.DateField()
+    duration = models.PositiveIntegerField()
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+    state = models.CharField(max_length="5", blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
     tags = models.ManyToManyField("Tags", related_name="entries")
 
     class Meta:
-        ordering = ("start_time", "stop_time")
+        ordering = ("date", "created")
 
 
 class Tags(models.Model):
