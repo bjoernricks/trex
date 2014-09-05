@@ -7,7 +7,7 @@
 
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
-from django.db import models
+from django.db import models, transaction
 
 
 class Project(models.Model):
@@ -25,6 +25,40 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy("project-detail", kwargs={"pk": self.id})
+
+    def create_entries_from_zeiterfassung(self, zeiterfassung):
+        with transaction.atomic():
+            read_count = 0
+            for zentry in zeiterfassung.read():
+                try:
+                    user = ProjectUsers.objects.get(project=self,
+                                                    user_abbr=zentry.get_user()
+                                                    ).user
+                except ProjectUsers.DoesNotExist:
+                    user = None
+
+                entry, created = Entry.objects.get_or_create(
+                    project=self, date=zentry.get_date(),
+                    duration=zentry.get_duration(), state=zentry.get_state(),
+                    description=zentry.get_description(), user=user
+                )
+
+                if not created:
+                    if user is None:
+                        # we can savely add the entry twice
+                        entry.id = None
+                        entry.save()
+                    else:
+                        raise ValueError(
+                            "Zeiterfassung entry %s has already been imported "
+                            "to the project %s" % (zentry, self.name))
+
+                tag, created = Tags.objects.get_or_create(
+                    project=self, name=zentry.get_workpackage()
+                )
+                entry.tags.add(tag)
+                read_count += 1
+            return read_count
 
 
 class Entry(models.Model):
