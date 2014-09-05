@@ -17,8 +17,7 @@ class Project(models.Model):
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     users = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        through="ProjectUsers", through_fields=("project", "user"),
+        settings.AUTH_USER_MODEL, through="ProjectUsers",
         related_name="projects")
 
     class Meta:
