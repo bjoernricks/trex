@@ -57,3 +57,5 @@ class ProjectUsers(models.Model):
 
     project = models.ForeignKey(Project)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user_abbr = models.CharField("User abbreviation for the project",
+                                 max_length=25)
