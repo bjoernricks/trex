@@ -12,7 +12,7 @@ from django.db import models
 
 class Project(models.Model):
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True, default="")
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
