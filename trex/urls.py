@@ -18,5 +18,5 @@ urlpatterns = patterns(
     url(r"^projects/$", ProjectListCreateAPIView.as_view(),
         name="project-list"),
     url(r"^projects/(?P<pk>[0-9]+)/$", ProjectDetailAPIView.as_view(),
-        name="project-details"),
+        name="project-detail"),
 )
