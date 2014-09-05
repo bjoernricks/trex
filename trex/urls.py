@@ -9,7 +9,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from trex.views.project import (
-    ProjectListCreateAPIView, ProjectDetailAPIView)
+    ProjectListCreateAPIView, ProjectDetailAPIView, EntryDetailAPIView)
 
 
 urlpatterns = patterns(
@@ -19,4 +19,6 @@ urlpatterns = patterns(
         name="project-list"),
     url(r"^projects/(?P<pk>[0-9]+)/$", ProjectDetailAPIView.as_view(),
         name="project-detail"),
+    url(r"^entries/(?P<pk>[0-9]+)/$", EntryDetailAPIView.as_view(),
+        name="entry-detail"),
 )
