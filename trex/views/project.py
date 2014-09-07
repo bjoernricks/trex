@@ -57,6 +57,12 @@ class ProjectZeiterfassungAPIView(generics.CreateAPIView):
         return {"non_field_errors": [msg]}
 
 
+class ProjectEntriesListAPIView(generics.ListAPIView):
+
+    queryset = Project.objects.all()
+    serializer_class = EntryDetailSerializer
+
+
 class EntryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Entry.objects.all()
