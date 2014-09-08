@@ -12,7 +12,6 @@ from trex.views import project
 
 urlpatterns = patterns(
     '',
-    url(r"^admin/", include(admin.site.urls)),
     url(r"^api/1/projects/$",
         project.ProjectListCreateAPIView.as_view(),
         name="project-list"),
