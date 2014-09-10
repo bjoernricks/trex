@@ -24,7 +24,7 @@ urlpatterns = patterns(
         name="project-detail"),
     url(r"^api/1/projects/(?P<pk>[0-9]+)/entries$",
         project.ProjectEntriesListAPIView.as_view(),
-        name="project-detail"),
+        name="project-entries-list"),
     url(r"^api/1/projects/(?P<pk>[0-9]+)/zeiterfassung/$",
         project.ProjectZeiterfassungAPIView.as_view(),
         name="project-zeiterfassung"),
