@@ -51,7 +51,7 @@
                             {{proj.description}}
                         </td>
                         <td>
-                            {{proj.active}}
+                            {{proj.active | checkmark}}
                         </td>
                         <td>
                             {{proj.created | date: 'short'}}
