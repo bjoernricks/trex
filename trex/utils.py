@@ -78,8 +78,9 @@ class Zeiterfassung(object):
 
     zeitline_comment = re.compile("\s+(?P<desc>.*)")
 
-    def __init__(self, zeiterfassung):
+    def __init__(self, zeiterfassung, encoding="utf-8"):
         self.zeiterfassung = zeiterfassung
+        self.encoding = encoding
 
     def read(self):
         entry = None
@@ -101,13 +102,16 @@ class Zeiterfassung(object):
                     minutes=int(zmatch.group("minutes")),
                     state=force_unicode(zmatch.group("state")),
                     user=force_unicode(zmatch.group("user")),
-                    workpackage=force_unicode(zmatch.group("ap")),
-                    description=force_unicode(zmatch.group("desc"))
+                    workpackage=force_unicode(zmatch.group("ap"),
+                                              self.encoding),
+                    description=force_unicode(zmatch.group("desc"),
+                                              self.encoding)
                     )
             elif entry and zcmatch:
                 # matches an longer description in the next line for a
                 # zeiterfassung line
-                entry.add_desc(zcmatch.group("desc").rstrip())
+                entry.add_desc(force_unicode(zcmatch.group("desc").rstrip(),
+                                             self.encoding))
             elif entry:
                 # additional content -> end of an entry
                 yield entry
