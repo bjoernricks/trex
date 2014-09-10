@@ -13,7 +13,7 @@ trexApp.config(['$routeProvider',
                 controller: 'ProjectDetailCtrl'
             }).
             otherwise({
-                redirectTo: 'projects/'
+                redirectTo: '/'
             });
     }]
 );
