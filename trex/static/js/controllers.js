@@ -5,6 +5,8 @@ trexControllers.controller('ProjectListCtrl', ['$scope', '$http',
         $http.get('/api/1/projects/').success(function(data) {
             $scope.projects = data;
         });
+
+        $scope.order = "name";
     }
 ]);
 
