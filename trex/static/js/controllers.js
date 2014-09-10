@@ -24,5 +24,18 @@ trexControllers.controller('ProjectDetailCtrl',
         $http.get('/api/1/projects/' + $routeParams.id).success(function(data) {
             $scope.project = data;
         });
+        $http.get('/api/1/projects/' + $routeParams.id + "/entries").success(
+            function(data) {
+                $scope.entries = data;
+        });
+        $scope.order = "name";
+        $scope.orderreverse = false;
+
+        $scope.setOrder = function(name) {
+            if (name == $scope.order) {
+                $scope.orderreverse = !$scope.orderreverse;
+            }
+            $scope.order = name;
+        };
     }
 ]);
