@@ -5,6 +5,8 @@
 # See LICENSE comming with the source of 'trex' for details.
 #
 
+from django.http import Http404
+
 from rest_framework import generics, status
 from rest_framework.response import Response
 
@@ -61,6 +63,23 @@ class ProjectEntriesListAPIView(generics.ListAPIView):
 
     queryset = Project.objects.all()
     serializer_class = EntryDetailSerializer
+
+    def list(self, request, *args, **kwargs):
+        proj = self.get_object()
+        self.object_list = proj.entries.all()
+        page = self.paginate_queryset(self.object_list)
+
+        if not self.allow_empty and not self.object_list:
+            class_name = self.__class__.__name__
+            error_msg = self.empty_error % {'class_name': class_name}
+            raise Http404(error_msg)
+
+        if page is not None:
+            serializer = self.get_pagination_serializer(page)
+        else:
+            serializer = self.get_serializer(self.object_list, many=True)
+
+        return Response(serializer.data)
 
 
 class EntryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
