@@ -43,6 +43,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField()),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('state', models.CharField(max_length=b'5', blank=True)),
+                ('user_abbr', models.CharField(default=b'', max_length=25, verbose_name=b'User abbreviation', blank=True)),
             ],
             options={
                 'ordering': ('date', 'created'),

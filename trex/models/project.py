@@ -37,21 +37,16 @@ class Project(models.Model):
                 except ProjectUsers.DoesNotExist:
                     user = None
 
-                entry, created = Entry.objects.get_or_create(
+                entry = Entry.objects.create(
                     project=self, date=zentry.get_date(),
                     duration=zentry.get_duration(), state=zentry.get_state(),
-                    description=zentry.get_description(), user=user
+                    description=zentry.get_description(), user=user,
+                    user_abbr=zentry.user
                 )
 
-                if not created:
-                    if user is None:
-                        # we can savely add the entry twice
-                        entry.id = None
-                        entry.save()
-                    else:
-                        raise ValueError(
-                            "Zeiterfassung entry %s has already been imported "
-                            "to the project %s" % (zentry, self.name))
+                # raise ValueError(
+                #     "Zeiterfassung entry %s has already been imported "
+                #     "to the project %s" % (zentry, self.name))
 
                 tag, created = Tags.objects.get_or_create(
                     project=self, name=zentry.get_workpackage()
@@ -70,6 +65,8 @@ class Entry(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     state = models.CharField(max_length="5", blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
+    user_abbr = models.CharField("User abbreviation", max_length=25, blank=True,
+                                 default="")
     tags = models.ManyToManyField("Tags", related_name="entries")
 
     class Meta:
