@@ -17,4 +17,3 @@ trexApp.config(['$routeProvider',
             });
     }]
 );
-
