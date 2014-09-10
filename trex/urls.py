@@ -5,8 +5,7 @@
 # See LICENSE comming with the source of 'trex' for details.
 #
 
-from django.conf.urls import patterns, include, url
-from django.contrib import admin
+from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
 from trex.views import project
