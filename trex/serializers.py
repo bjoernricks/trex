@@ -32,4 +32,5 @@ class EntryDetailSerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = Entry
-        fields = ("date", "duration", "description", "state", "user", "created")
+        fields = ("url", "id", "date", "duration", "description", "state",
+                  "user_abbr", "user", "created", "tags")
