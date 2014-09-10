@@ -18,14 +18,30 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th><a hre="#" ng-click="order = 'name'">Name</a></th>
-                        <th><a hre="#" ng-click="order = 'description'">Description</th>
-                        <th><a hre="#" ng-click="order = 'active'">Active</th>
-                        <th><a hre="#" ng-click="order = 'created'">Created</th>
+                        <th>
+                            <a ng-click="setOrder('name')">
+                                Name
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setOrder('description')">
+                                Description
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setOrder('active')">
+                                Active
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setOrder('created')">
+                                Created
+                            </a>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="proj in projects | filter:query | orderBy:order">
+                    <tr ng-repeat="proj in projects | filter:query | orderBy:order:orderreverse">
                         <td>
                             <a href="#/projects/{{proj.id}}">
                                 {{proj.name}}
