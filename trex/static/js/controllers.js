@@ -7,6 +7,14 @@ trexControllers.controller('ProjectListCtrl', ['$scope', '$http',
         });
 
         $scope.order = "name";
+        $scope.orderreverse = false;
+
+        $scope.setOrder = function(name) {
+            if (name == $scope.order) {
+                $scope.orderreverse = !$scope.orderreverse;
+            }
+            $scope.order = name;
+        };
     }
 ]);
 
