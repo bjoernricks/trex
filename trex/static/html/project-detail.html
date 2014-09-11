@@ -49,6 +49,11 @@
                                 Description
                             </a>
                         </th>
+                        <th>
+                            <a ng-click="setOrder('tags')">
+                                Tags
+                            </a>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,6 +76,12 @@
                         </td>
                         <td>
                             {{entry.description}}
+                        </td>
+                        <td>
+                            <span class="label label-default"
+                                ng-repeat="tag in entry.tags">
+                                {{tag.name}}
+                            </span>
                         </td>
                     </tr>
                 </tbody>
