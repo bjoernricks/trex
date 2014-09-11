@@ -1,10 +1,8 @@
 var trexControllers = angular.module('trexControllers', []);
 
-trexControllers.controller('ProjectListCtrl', ['$scope', '$http',
-    function($scope, $http) {
-        $http.get('/api/1/projects/').success(function(data) {
-            $scope.projects = data;
-        });
+trexControllers.controller('ProjectListCtrl', ['$scope', 'Project',
+    function($scope, Project) {
+        $scope.projects = Project.query();
 
         $scope.order = "name";
         $scope.orderreverse = false;
@@ -19,16 +17,14 @@ trexControllers.controller('ProjectListCtrl', ['$scope', '$http',
 ]);
 
 trexControllers.controller('ProjectDetailCtrl',
-    ['$scope', '$routeParams', '$http',
-    function($scope, $routeParams, $http) {
-        $http.get('/api/1/projects/' + $routeParams.id).success(function(data) {
-            $scope.project = data;
-        });
-        $http.get('/api/1/projects/' + $routeParams.id + "/entries").success(
-            function(data) {
-                $scope.entries = data;
-        });
-        $scope.order = "name";
+    ['$scope', '$routeParams', 'Project',
+    function($scope, $routeParams, Project) {
+        $scope.project = Project.get({projectId: $routeParams.id});
+        $scope.entries = Project.entries({projectId: $routeParams.id});
+        // $http.get('/api/1/projects/' + $routeParams.id + "/entries").success(
+        //     function(data) {
+        // });
+        $scope.order = "id";
         $scope.orderreverse = false;
 
         $scope.setOrder = function(name) {
