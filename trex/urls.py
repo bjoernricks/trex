@@ -31,4 +31,7 @@ urlpatterns = patterns(
     url(r"^api/1/entries/(?P<pk>[0-9]+)/$",
         project.EntryDetailAPIView.as_view(),
         name="entry-detail"),
+    url(r"^api/1/tags/(?P<pk>[0-9]+)/$",
+        project.TagDetailAPIView.as_view(),
+        name="tag-detail"),
 )
