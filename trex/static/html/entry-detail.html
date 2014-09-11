@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Entry {{entry.id}}</h2>
+
+            <dl class="dl-horizontal">
+                <dt>Date</dt>
+                <dd>
+                    {{entry.date | date}}
+                </dd>
+                <dt>Duration</dt>
+                <dd>
+                    {{entry.duration | duration}}
+                </dd>
+                <dt>State</dt>
+                <dd>
+                    {{entry.state}}
+                </dd>
+                <dt>User</dt>
+                <dd>
+                    {{entry.user}}
+                </dd>
+                <dt>Project</dt>
+                <dd>
+                    <a href="#/project/{{entry.project.id}}">
+                        {{entry.project.name}}
+                    </a>
+                </dd>
+            </dl>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Description</div>
+                <div class="panel-body">
+                    {{entry.description}}
+                </div>
+            </div>
+
+            <h3>Tags</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <a ng-click="setOrder('id')">
+                                ID
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setOrder('name')">
+                                Name
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setOrder('name')">
+                                Description
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tag in entry.tags | filter:query | orderBy:order:orderreverse">
+                        <td>
+                            {{tag.id}}
+                        </td>
+                        <td>
+                            <span class="label label-default">
+                                {{tag.name}}
+                            </span>
+                        </td>
+                        <td>
+                            {{tag.description}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

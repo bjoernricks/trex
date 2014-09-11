@@ -12,6 +12,10 @@ trexApp.config(['$routeProvider',
                 templateUrl: 'static/html/project-detail.html',
                 controller: 'ProjectDetailCtrl'
             }).
+            when("/entries/:id", {
+                templateUrl: 'static/html/entry-detail.html',
+                controller: 'EntryDetailCtrl'
+            }).
             otherwise({
                 redirectTo: '/'
             });
