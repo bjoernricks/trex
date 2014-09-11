@@ -48,7 +48,7 @@ class Project(models.Model):
                 #     "Zeiterfassung entry %s has already been imported "
                 #     "to the project %s" % (zentry, self.name))
 
-                tag, created = Tags.objects.get_or_create(
+                tag, created = Tag.objects.get_or_create(
                     project=self, name=zentry.get_workpackage()
                 )
                 entry.tags.add(tag)
@@ -67,7 +67,7 @@ class Entry(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
     user_abbr = models.CharField("User abbreviation", max_length=25, blank=True,
                                  default="")
-    tags = models.ManyToManyField("Tags", related_name="entries")
+    tags = models.ManyToManyField("Tag", related_name="entries")
 
     class Meta:
         ordering = ("date", "created")
@@ -76,7 +76,7 @@ class Entry(models.Model):
         return reverse_lazy("entry-detail", kwargs={"pk": self.id})
 
 
-class Tags(models.Model):
+class Tag(models.Model):
 
     project = models.ForeignKey(Project, related_name="tags")
     name = models.CharField(max_length=255)

@@ -77,7 +77,7 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Tags',
+            name='Tag',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=255)),
@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='entry',
             name='tags',
-            field=models.ManyToManyField(related_name=b'entries', to='trex.Tags'),
+            field=models.ManyToManyField(related_name=b'entries', to='trex.Tag'),
             preserve_default=True,
         ),
         migrations.AddField(
