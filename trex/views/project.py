@@ -10,10 +10,12 @@ from django.http import Http404
 from rest_framework import generics, status
 from rest_framework.response import Response
 
-from trex.models.project import Project, Entry
+from trex.models.project import Project, Entry, Tag
 from trex.parsers import PlainTextParser
 from trex.serializers import (
-    ProjectSerializer, ProjectDetailSerializer, EntryDetailSerializer)
+    ProjectSerializer, ProjectDetailSerializer, EntryDetailSerializer,
+    TagDetailSerializer,
+)
 from trex.utils import Zeiterfassung
 
 
@@ -86,3 +88,8 @@ class EntryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Entry.objects.all()
     serializer_class = EntryDetailSerializer
+
+class TagDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = Tag.objects.all()
+    serializer_class = TagDetailSerializer
