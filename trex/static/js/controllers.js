@@ -35,3 +35,20 @@ trexControllers.controller('ProjectDetailCtrl',
         };
     }
 ]);
+
+trexControllers.controller('EntryDetailCtrl',
+    ['$scope', '$routeParams', 'Entry',
+    function($scope, $routeParams, Entry) {
+        $scope.entry = Entry.get({entryId: $routeParams.id});
+
+        $scope.order = "id";
+        $scope.orderreverse = false;
+
+        $scope.setOrder = function(name) {
+            if (name == $scope.order) {
+                $scope.orderreverse = !$scope.orderreverse;
+            }
+            $scope.order = name;
+        };
+    }
+]);
