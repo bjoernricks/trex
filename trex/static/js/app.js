@@ -1,5 +1,5 @@
 var trexApp = angular.module('trexApp',
-        ['ngRoute', 'trexControllers', 'trexFilters']);
+        ['ngRoute', 'trexControllers', 'trexFilters', 'trexServices']);
 
 trexApp.config(['$routeProvider',
     function($routeProvider) {
