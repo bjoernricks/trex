@@ -9,7 +9,7 @@ from rest_framework.serializers import (
     HyperlinkedModelSerializer, HyperlinkedIdentityField,
 )
 
-from trex.models.project import Project, Entry
+from trex.models.project import Project, Entry, Tag
 
 
 class ProjectSerializer(HyperlinkedModelSerializer):
@@ -28,6 +28,13 @@ class ProjectDetailSerializer(HyperlinkedModelSerializer):
         fields = ("id", "name", "description", "active", "created", "entries")
 
 
+class EntryTagsSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Tag
+        fields = ("url", "id", "name")
+
+
 class EntryProjectSerializer(HyperlinkedModelSerializer):
 
     class Meta:
@@ -37,9 +44,10 @@ class EntryProjectSerializer(HyperlinkedModelSerializer):
 
 class EntryDetailSerializer(HyperlinkedModelSerializer):
 
+    tags = EntryTagsSerializer(many=True)
     project = EntryProjectSerializer()
 
     class Meta:
         model = Entry
         fields = ("url", "id", "date", "duration", "description", "state",
-                  "user_abbr", "user", "created", "project")
+                  "user_abbr", "user", "created", "project", "tags")
