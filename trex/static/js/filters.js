@@ -1,3 +1,5 @@
+'use strict';
+
 var module = angular.module('trexFilters', []);
 
 module.filter('checkmark', function() {

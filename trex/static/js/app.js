@@ -1,3 +1,5 @@
+'use strict';
+
 var trexApp = angular.module('trexApp',
         ['ngRoute', 'trexControllers', 'trexFilters', 'trexServices']);
 
