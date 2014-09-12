@@ -6,7 +6,7 @@
 //
 'use strict';
 
-var module = angular.module('trexFilters', []);
+var module = angular.module('trex.filters', []);
 
 module.filter('checkmark', function() {
     return function(input) {

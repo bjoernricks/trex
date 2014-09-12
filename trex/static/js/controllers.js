@@ -6,7 +6,7 @@
 //
 'use strict';
 
-var trexControllers = angular.module('trexControllers', []);
+var trexControllers = angular.module('trex.controllers', []);
 
 trexControllers.controller('ProjectListCtrl', ['$scope', 'Project',
     function($scope, Project) {

@@ -6,7 +6,7 @@
 //
 'use strict';
 
-var trexServices = angular.module('trexServices', ['ngResource']);
+var trexServices = angular.module('trex.services', ['ngResource']);
 
 trexServices.factory('Project', ['$resource',
     function($resource) {
