@@ -3,6 +3,21 @@
         <div class="col-md-8">
             <h2>Project {{project.name}}</h2>
 
+            <dl class="dl-horizontal">
+                <dt>Description</dt>
+                <dd>
+                {{project.description}}
+                </dd>
+                <dt>Active</dt>
+                <dd>
+                {{project.active|checkmark}}
+                </dd>
+                <dt>Created</dt>
+                <dd>
+                {{project.created|date}}
+                </dd>
+            </dl>
+
             <div ng-show="!entries.length && !loading">
                 No entries evailable.
             </div>
