@@ -6,8 +6,9 @@
 //
 'use strict';
 
-var trexApp = angular.module('trexApp',
-        ['ngRoute', 'trex.controllers', 'trex.filters', 'trex.services']);
+var trexApp = angular.module('trex.app',
+        ['ngRoute', 'ngCookies', 'trex.controllers', 'trex.filters',
+         'trex.services']);
 
 trexApp.config(['$routeProvider',
     function($routeProvider) {
@@ -29,3 +30,10 @@ trexApp.config(['$routeProvider',
             });
     }]
 );
+
+trexApp.run(['$http', '$cookies',
+    function($http, $cookies) {
+        $http.defaults.headers.common['X-CSRFToken'] = $cookies.csrftoken;
+    }]
+);
+
