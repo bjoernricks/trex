@@ -8,20 +8,37 @@
 
 var trexServices = angular.module('trex.services', ['ngResource']);
 
-trexServices.factory('Project', ['$resource',
-    function($resource) {
-        return $resource('/api/1/projects/:projectId', {projectId: '@id'}, {
-            entries: {method: 'GET', isArray: true,
-                      url: '/api/1/projects/:projectId/entries',
-                      params: {projectId:'@id'}
-                     }
-        });
+
+trexServices.factory('Conf', function($location) {
+    function getRootUrl() {
+        var rootUrl = $location.protocol() + '://' + $location.host();
+        if ($location.port())
+            rootUrl += ':' + $location.port();
+        return rootUrl;
+    };
+
+    return {
+        'apiBase': '/api/1',
+        'rootUrl': getRootUrl(),
+    };
+});
+
+trexServices.factory('Project', ['$resource', 'Conf',
+    function($resource, Conf) {
+        return $resource(Conf.apiBase + '/projects/:projectId',
+            {projectId: '@id'},
+            {entries: {method: 'GET', isArray: true,
+                       url: Conf.apiBase + '/projects/:projectId/entries',
+                       params: {projectId:'@id'}
+                      }
+           }
+        );
     }
 ]);
 
-trexServices.factory('Entry', ['$resource',
-    function($resource) {
-        return $resource('/api/1/entries/:entryId', {entryId: '@id'}, {
+trexServices.factory('Entry', ['$resource', 'Conf',
+    function($resource, Conf) {
+        return $resource(Conf.apiBase + '/entries/:entryId', {entryId: '@id'}, {
         });
     }
 ]);
