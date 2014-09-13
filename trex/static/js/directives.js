@@ -13,7 +13,6 @@ trexDirectives.directive('trexLoading', function() {
         restrict: 'A',
         link: function(scope, element, attrs) {
             var options = scope.$eval(attrs.trexLoading);
-            console.log(options);
             var spinner = new Spinner(options).spin();
 
             element.append(spinner.el);
