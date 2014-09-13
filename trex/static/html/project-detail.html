@@ -3,6 +3,10 @@
         <div class="col-md-8">
             <h2>Project {{project.name}}</h2>
 
+            <div ng-show="!entries.length && !loading">
+                No entries evailable.
+            </div>
+
             <div ng-show="entries.length">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
