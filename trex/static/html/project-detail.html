@@ -3,89 +3,91 @@
         <div class="col-md-8">
             <h2>Project {{project.name}}</h2>
 
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label for="searchinput" class="col-sm-1 control-label">
-                        Search:
-                    </label>
-                    <div class="col-sm-3">
-                        <input ng-model="query" type="search"
-                            class="form-control" id="searchinput"
-                            placeholder="search">
+            <div ng-show="entries.length">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="searchinput" class="col-sm-1 control-label">
+                            Search:
+                        </label>
+                        <div class="col-sm-3">
+                            <input ng-model="query" type="search"
+                                class="form-control" id="searchinput"
+                                placeholder="search">
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
 
-            <table class="table table-hover" ng-show="entries.length">
-                <thead>
-                    <tr>
-                        <th>
-                            <a ng-click="setOrder('id')">
-                                ID
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setOrder('date')">
-                                Date
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setOrder('duration')">
-                                Duration
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setOrder('state')">
-                                State
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setOrder('user')">
-                                User
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setOrder('description')">
-                                Description
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setOrder('tags')">
-                                Tags
-                            </a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="entry in entries | filter:query | orderBy:order:orderreverse">
-                        <td>
-                            <a href="#/entries/{{entry.id}}">
-                                {{entry.id}}
-                            </a>
-                        </td>
-                        <td>
-                            {{entry.date | date}}
-                        <td class="text-right">
-                            {{entry.duration | duration}}
-                        </td>
-                        <td>
-                            {{entry.state}}
-                        </td>
-                        <td>
-                            {{entry.user_abbr}}
-                        </td>
-                        <td>
-                            {{entry.description}}
-                        </td>
-                        <td>
-                            <span class="label label-default"
-                                ng-repeat="tag in entry.tags">
-                                {{tag.name}}
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a ng-click="setOrder('id')">
+                                    ID
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setOrder('date')">
+                                    Date
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setOrder('duration')">
+                                    Duration
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setOrder('state')">
+                                    State
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setOrder('user')">
+                                    User
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setOrder('description')">
+                                    Description
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setOrder('tags')">
+                                    Tags
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="entry in entries | filter:query | orderBy:order:orderreverse">
+                            <td>
+                                <a href="#/entries/{{entry.id}}">
+                                    {{entry.id}}
+                                </a>
+                            </td>
+                            <td>
+                                {{entry.date | date}}
+                            <td class="text-right">
+                                {{entry.duration | duration}}
+                            </td>
+                            <td>
+                                {{entry.state}}
+                            </td>
+                            <td>
+                                {{entry.user_abbr}}
+                            </td>
+                            <td>
+                                {{entry.description}}
+                            </td>
+                            <td>
+                                <span class="label label-default"
+                                    ng-repeat="tag in entry.tags">
+                                    {{tag.name}}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
