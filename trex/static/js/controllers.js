@@ -29,9 +29,7 @@ trexControllers.controller('ProjectDetailCtrl',
     function($scope, $routeParams, Project) {
         $scope.project = Project.get({projectId: $routeParams.id});
         $scope.entries = Project.entries({projectId: $routeParams.id});
-        // $http.get('/api/1/projects/' + $routeParams.id + "/entries").success(
-        //     function(data) {
-        // });
+
         $scope.order = "id";
         $scope.orderreverse = false;
 
