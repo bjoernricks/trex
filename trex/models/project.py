@@ -26,6 +26,13 @@ class BaseQuerySet(models.QuerySet):
     as_manager = classmethod(as_manager)
 
 
+class EntryQuerySet(BaseQuerySet):
+
+    def get_duration_sum(self):
+        dsum = self.aggregate(duration=models.Sum("duration"))
+        return dsum["duration"] or 0
+
+
 class Project(models.Model):
 
     name = models.CharField(max_length=50, unique=True)
@@ -87,6 +94,7 @@ class Entry(models.Model):
     user_abbr = models.CharField("User abbreviation", max_length=25, blank=True,
                                  default="")
     tags = models.ManyToManyField("Tag", related_name="entries")
+    objects = EntryQuerySet.as_manager(use_for_related_fields=True)
 
     class Meta:
         ordering = ("date", "created")
