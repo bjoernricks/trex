@@ -71,6 +71,9 @@ class Project(models.Model):
                 read_count += 1
             return read_count
 
+    def __unicode__(self):
+        return "Project %s ID %s" % (self.name, self.id)
+
 
 class Entry(models.Model):
 
