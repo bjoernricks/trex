@@ -89,6 +89,7 @@ class EntryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Entry.objects.all()
     serializer_class = EntryDetailSerializer
 
+
 class TagDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Tag.objects.all()
