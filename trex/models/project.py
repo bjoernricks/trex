@@ -10,6 +10,22 @@ from django.core.urlresolvers import reverse_lazy
 from django.db import models, transaction
 
 
+class BaseQuerySet(models.QuerySet):
+    use_for_related_fields = True
+
+    def as_manager(cls, use_for_related_fields=None):
+        # override method to allow setting use_for_related_fields
+
+        if use_for_related_fields is None:
+            use_for_related_fields = cls.use_for_related_fields
+
+        manager_cls = models.manager.Manager.from_queryset(cls)
+        manager_cls.use_for_related_fields = use_for_related_fields
+        return manager_cls()
+    as_manager.queryset_only = True
+    as_manager = classmethod(as_manager)
+
+
 class Project(models.Model):
 
     name = models.CharField(max_length=50, unique=True)
