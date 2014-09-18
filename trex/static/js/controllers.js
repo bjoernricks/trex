@@ -30,6 +30,8 @@ trexControllers.controller('ProjectDetailCtrl',
         $scope.project = Project.get({projectId: $routeParams.id});
         $scope.entries = Project.entries({projectId: $routeParams.id});
 
+        $scope.entries_tags = "";
+
         $scope.order = "id";
         $scope.orderreverse = false;
 
@@ -59,6 +61,17 @@ trexControllers.controller('ProjectDetailCtrl',
                     }
                 );
             $scope.entries_loading = true;
+        };
+
+        $scope.addSearchTag = function(tag) {
+            if ($scope.entries_tags.indexOf(tag) == -1) {
+                if ($scope.entries_tags.length == 0) {
+                  $scope.entries_tags += tag;
+                }
+                else {
+                  $scope.entries_tags += "," + tag;
+                }
+            }
         };
     }
 ]);
