@@ -67,6 +67,29 @@ class EntryDetailSerializer(HyperlinkedModelSerializer):
                   "user_abbr", "user", "created", "project", "tags")
 
 
+class ProjectEntrySerializer(HyperlinkedModelSerializer):
+    """
+    Serializer to show the Entries of a Project
+    """
+
+    tags = EntryTagsSerializer(many=True)
+
+    class Meta:
+        model = Entry
+        fields = ("url", "id", "date", "duration", "description", "state",
+                  "user_abbr", "user", "created", "tags")
+
+
+class ProjectTagSerializer(HyperlinkedModelSerializer):
+    """
+    Serializer to show the Tags of a Project
+    """
+
+    class Meta:
+        model = Tag
+        fields = ("id", "name", "description", "created")
+
+
 class TagDetailSerializer(HyperlinkedModelSerializer):
     """
     Serializer to show the details of a Tag
