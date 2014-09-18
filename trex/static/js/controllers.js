@@ -33,8 +33,12 @@ trexControllers.controller('ProjectDetailCtrl',
         $scope.order = "id";
         $scope.orderreverse = false;
 
+        $scope.$watch('project.$resolved', function(value) {
+            $scope.project_loading = !value;
+        });
+
         $scope.$watch('entries.$resolved', function(value) {
-            $scope.loading = !value;
+            $scope.entries_loading = !value;
         });
 
         $scope.setOrder = function(name) {
