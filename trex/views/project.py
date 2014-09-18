@@ -8,6 +8,8 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 
+import trex.filters as filters
+
 from trex.models.project import Project, Entry, Tag
 from trex.parsers import PlainTextParser
 from trex.serializers import (
@@ -75,6 +77,7 @@ class ProjectMixin(object):
 class ProjectEntriesListAPIView(ProjectMixin, generics.ListAPIView):
 
     serializer_class = ProjectEntrySerializer
+    filter_class = filters.EntryFilter
 
     def get_queryset(self):
         project = self.get_project()
