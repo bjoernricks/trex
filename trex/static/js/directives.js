@@ -13,9 +13,8 @@ trexDirectives.directive('trexLoading', function() {
         restrict: 'A',
         link: function(scope, element, attrs) {
             var options = scope.$eval(attrs.trexLoading);
-            var spinner = new Spinner(options).spin();
+            var spinner = new Spinner(options);
 
-            element.append(spinner.el);
 
             scope.$on('$destroy', function () {
                 spinner.stop();
@@ -24,6 +23,10 @@ trexDirectives.directive('trexLoading', function() {
             scope.$watch(attrs.loading, function(value) {
                 if (!value) {
                     spinner.stop();
+                }
+                else {
+                    spinner.spin();
+                    element.append(spinner.el);
                 }
             });
 
