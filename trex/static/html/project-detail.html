@@ -3,20 +3,29 @@
         <div class="col-md-8">
             <h2 id="project">Project {{project.name}}</h2>
 
-            <dl class="dl-horizontal">
-                <dt>Description</dt>
-                <dd>
-                {{project.description}}
-                </dd>
-                <dt>Active</dt>
-                <dd>
-                {{project.active|checkmark}}
-                </dd>
-                <dt>Created</dt>
-                <dd>
-                {{project.created|date}}
-                </dd>
-            </dl>
+            <div ng-show="project.id">
+                <dl class="dl-horizontal">
+                    <dt>Description</dt>
+                    <dd>
+                    {{project.description}}
+                    </dd>
+                    <dt>Active</dt>
+                    <dd>
+                    {{project.active|checkmark}}
+                    </dd>
+                    <dt>Created</dt>
+                    <dd>
+                    {{project.created|date}}
+                    </dd>
+                </dl>
+            </div>
+
+            <div ng-show="!project.name && !project_loading">
+                Unkown project
+            </div>
+
+            <div trex-loading="{top:'50%', left:'50%', width:4, radius: 6, lines: 10, trail: 100}"
+                loading="project_loading"/>
 
             <h3 id="entries">Entries</h3>
 
