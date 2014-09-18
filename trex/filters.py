@@ -7,7 +7,34 @@
 
 import django_filters
 
+from django import forms
+from django.db.models import Q
+
 from trex.models import Entry
+
+
+class MultipleTextFilter(django_filters.Filter):
+    field_class = forms.CharField
+
+    def filter(self, qs, value):
+
+        if not value:
+            return qs
+
+        if self.lookup_type:
+            lookup = "__%s" % self.lookup_type
+        else:
+            lookup = ""
+
+        q = Q()
+        for v in value.split(","):
+            q |= Q(**{"%s%s" % (self.name, lookup): v})
+
+        qs = qs.filter(q)
+
+        if self.distinct:
+            qs = qs.distinct()
+        return qs
 
 
 class EntryFilter(django_filters.FilterSet):
