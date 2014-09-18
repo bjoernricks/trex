@@ -10,7 +10,7 @@ import django_filters
 from django import forms
 from django.db.models import Q
 
-from trex.models import Entry
+from trex.models import Entry, Tag
 
 
 class MultipleTextFilter(django_filters.Filter):
@@ -45,3 +45,15 @@ class EntryFilter(django_filters.FilterSet):
     class Meta:
         model = Entry
         fields = ["from_date", "to_date", "state"]
+
+
+class TagFilter(django_filters.FilterSet):
+
+    name = MultipleTextFilter(name="name")
+    name_like = MultipleTextFilter(name="name", lookup_type="contains")
+    description = django_filters.CharFilter(name="description",
+                                            lookup_type="contains")
+
+    class Meta:
+        model = Tag
+        fields = ["name", "description"]
