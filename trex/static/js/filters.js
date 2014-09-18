@@ -21,9 +21,9 @@ module.filter('duration', function() {
         var minutes = minutes % 60;
 
         if (minutes.toString().length < 2) {
-            return "" + hours + ":0" + minutes;
+            return "" + hours + ":0" + minutes + " h";
         }
-        return "" + hours + ":" + minutes;
+        return "" + hours + ":" + minutes + " h";
     };
 });
 
