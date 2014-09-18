@@ -17,6 +17,10 @@
                     <dd>
                     {{project.created|date}}
                     </dd>
+                    <dt>Duration</dt>
+                    <dd>
+                    {{entries|sumByKey:'duration'|workduration}}
+                    </dd>
                 </dl>
             </div>
 
