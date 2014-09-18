@@ -61,50 +61,35 @@ class ProjectZeiterfassungAPIView(generics.CreateAPIView):
         return {"non_field_errors": [msg]}
 
 
-class ProjectEntriesListAPIView(generics.ListAPIView):
+class ProjectMixin(object):
 
-    queryset = Project.objects.all()
+    def get_project_queryset(self):
+        return Project.objects.all()
+
+    def get_project(self):
+        pk = self.kwargs.get(self.pk_url_kwarg, None)
+        filter = {
+            "pk": pk,
+        }
+        return self.get_project_queryset().get(**filter)
+
+
+class ProjectEntriesListAPIView(ProjectMixin, generics.ListAPIView):
+
     serializer_class = ProjectEntrySerializer
 
-    def list(self, request, *args, **kwargs):
-        proj = self.get_object()
-        self.object_list = proj.entries.all()
-        page = self.paginate_queryset(self.object_list)
-
-        if not self.allow_empty and not self.object_list:
-            class_name = self.__class__.__name__
-            error_msg = self.empty_error % {'class_name': class_name}
-            raise Http404(error_msg)
-
-        if page is not None:
-            serializer = self.get_pagination_serializer(page)
-        else:
-            serializer = self.get_serializer(self.object_list, many=True)
-
-        return Response(serializer.data)
+    def get_queryset(self):
+        project = self.get_project()
+        return project.entries.all()
 
 
-class ProjectTagsListAPIView(generics.ListAPIView):
+class ProjectTagsListAPIView(ProjectMixin, generics.ListAPIView):
 
-    queryset = Project.objects.all()
     serializer_class = ProjectTagSerializer
 
-    def list(self, request, *args, **kwargs):
-        proj = self.get_object()
-        self.object_list = proj.tags.all()
-        page = self.paginate_queryset(self.object_list)
-
-        if not self.allow_empty and not self.object_list:
-            class_name = self.__class__.__name__
-            error_msg = self.empty_error % {'class_name': class_name}
-            raise Http404(error_msg)
-
-        if page is not None:
-            serializer = self.get_pagination_serializer(page)
-        else:
-            serializer = self.get_serializer(self.object_list, many=True)
-
-        return Response(serializer.data)
+    def get_queryset(self):
+        project = self.get_project()
+        return project.tags.all()
 
 
 class EntryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
