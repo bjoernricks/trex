@@ -87,6 +87,7 @@ class ProjectEntriesListAPIView(ProjectMixin, generics.ListAPIView):
 class ProjectTagsListAPIView(ProjectMixin, generics.ListAPIView):
 
     serializer_class = ProjectTagSerializer
+    filter_class = filters.TagFilter
 
     def get_queryset(self):
         project = self.get_project()
