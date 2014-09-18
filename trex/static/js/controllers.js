@@ -47,6 +47,19 @@ trexControllers.controller('ProjectDetailCtrl',
             }
             $scope.order = name;
         };
+
+        $scope.searchEntries = function() {
+            $scope.entries = Project.entries(
+                    {
+                        projectId: $routeParams.id,
+                        from_date: $scope.entries_from_date,
+                        to_date: $scope.entries_to_date,
+                        state: $scope.entries_state,
+                        tag: $scope.entries_tags
+                    }
+                );
+            $scope.entries_loading = true;
+        };
     }
 ]);
 
