@@ -14,7 +14,7 @@ from trex.models.project import Project, Entry, Tag
 from trex.parsers import PlainTextParser
 from trex.serializers import (
     ProjectSerializer, ProjectDetailSerializer, EntryDetailSerializer,
-    TagDetailSerializer,
+    TagDetailSerializer, ProjectEntrySerializer, ProjectTagSerializer,
 )
 from trex.utils import Zeiterfassung
 
@@ -64,7 +64,7 @@ class ProjectZeiterfassungAPIView(generics.CreateAPIView):
 class ProjectEntriesListAPIView(generics.ListAPIView):
 
     queryset = Project.objects.all()
-    serializer_class = EntryDetailSerializer
+    serializer_class = ProjectEntrySerializer
 
     def list(self, request, *args, **kwargs):
         proj = self.get_object()
@@ -87,7 +87,7 @@ class ProjectEntriesListAPIView(generics.ListAPIView):
 class ProjectTagsListAPIView(generics.ListAPIView):
 
     queryset = Project.objects.all()
-    serializer_class = TagDetailSerializer
+    serializer_class = ProjectTagSerializer
 
     def list(self, request, *args, **kwargs):
         proj = self.get_object()
