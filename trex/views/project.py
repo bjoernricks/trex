@@ -81,7 +81,7 @@ class ProjectEntriesListAPIView(ProjectMixin, generics.ListAPIView):
 
     def get_queryset(self):
         project = self.get_project()
-        return project.entries.all()
+        return project.entries.all().order_by("id")
 
 
 class ProjectTagsListAPIView(ProjectMixin, generics.ListAPIView):
@@ -90,7 +90,7 @@ class ProjectTagsListAPIView(ProjectMixin, generics.ListAPIView):
 
     def get_queryset(self):
         project = self.get_project()
-        return project.tags.all()
+        return project.tags.all().order_by("id")
 
 
 class EntryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
