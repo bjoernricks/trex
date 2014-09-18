@@ -5,8 +5,6 @@
 # See LICENSE comming with the source of 'trex' for details.
 #
 
-from django.http import Http404
-
 from rest_framework import generics, status
 from rest_framework.response import Response
 
