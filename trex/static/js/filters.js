@@ -27,6 +27,35 @@ module.filter('duration', function() {
     };
 });
 
+module.filter('workduration', function() {
+    return function(input) {
+        var minutes = input / 60;
+        var hours = Math.floor(minutes / 60);
+        var minutes = minutes % 60;
+        var ret = "";
+        var work_day_hours = 8;
+
+        if (hours >= work_day_hours) {
+            var org_hours = hours;
+            var days = Math.floor(org_hours / work_day_hours);
+            hours = org_hours % work_day_hours;
+
+            ret = "" + days;
+            if (days > 1) {
+                ret = ret + " days ";
+            }
+            else {
+                ret = ret + "day ";
+            }
+        }
+
+        if (minutes.toString().length < 2) {
+            return ret + hours + ":0" + minutes + " h";
+        }
+        return ret + hours + ":" + minutes + " h";
+    };
+});
+
 module.filter('sumByKey', function() {
     return function(data, key) {
         if (typeof(data) === 'undefined' || typeof(key) === 'undefined') {
