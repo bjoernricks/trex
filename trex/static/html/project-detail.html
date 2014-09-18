@@ -167,8 +167,9 @@
                             </td>
                             <td>
                                 <span class="label label-default"
-                                    ng-repeat="tag in entry.tags">
-                                    {{tag.name}}
+                                    ng-repeat="tag in entry.tags"
+                                    ng-click="addSearchTag(tag.name)">
+                                        {{tag.name}}
                                 </span>
                             </td>
                         </tr>
