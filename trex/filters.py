@@ -41,6 +41,7 @@ class EntryFilter(django_filters.FilterSet):
 
     from_date = django_filters.DateFilter(name="date", lookup_type="gte")
     to_date = django_filters.DateFilter(name="date", lookup_type="lte")
+    tag = MultipleTextFilter(name="tags__name", lookup_type="contains")
 
     class Meta:
         model = Entry
