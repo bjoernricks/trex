@@ -20,6 +20,9 @@ class ProjectSerializer(HyperlinkedModelSerializer):
 
 
 class ProjectDetailSerializer(HyperlinkedModelSerializer):
+    """
+    Serializer to show the details of a Project
+    """
 
     entries = HyperlinkedIdentityField(view_name="project-entries-list")
     tags = HyperlinkedIdentityField(view_name="project-tags-list")
@@ -31,6 +34,9 @@ class ProjectDetailSerializer(HyperlinkedModelSerializer):
 
 
 class EntryTagsSerializer(HyperlinkedModelSerializer):
+    """
+    Serializer to show the Tags of an Entry
+    """
 
     class Meta:
         model = Tag
@@ -38,6 +44,9 @@ class EntryTagsSerializer(HyperlinkedModelSerializer):
 
 
 class EntryProjectSerializer(HyperlinkedModelSerializer):
+    """
+    Serializer to show the Project of an Entry
+    """
 
     class Meta:
         model = Project
@@ -45,6 +54,9 @@ class EntryProjectSerializer(HyperlinkedModelSerializer):
 
 
 class EntryDetailSerializer(HyperlinkedModelSerializer):
+    """
+    Serializer to show the details of an Entry
+    """
 
     tags = EntryTagsSerializer(many=True)
     project = EntryProjectSerializer()
@@ -56,6 +68,9 @@ class EntryDetailSerializer(HyperlinkedModelSerializer):
 
 
 class TagDetailSerializer(HyperlinkedModelSerializer):
+    """
+    Serializer to show the details of a Tag
+    """
 
     class Meta:
         model = Tag
