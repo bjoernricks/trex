@@ -19,7 +19,7 @@ trexServices.factory('Conf', function($location) {
 
     return {
         'apiBase': '/api/1',
-        'rootUrl': getRootUrl(),
+        'rootUrl': getRootUrl()
     };
 });
 
@@ -29,7 +29,7 @@ trexServices.factory('Project', ['$resource', 'Conf',
             {projectId: '@id'},
             {entries: {method: 'GET', isArray: true,
                        url: Conf.apiBase + '/projects/:projectId/entries',
-                       params: {projectId:'@id'}
+                       params: {projectId: '@id'}
                       }
            }
         );
