@@ -98,3 +98,9 @@ STATIC_URL = '/static/'
 # We expect this to be once a day for common users.
 # If needed this can be enhanced by a time limit.
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# REST Framework settings
+REST_FRAMEWORK = {
+    # add django-filters backend
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
