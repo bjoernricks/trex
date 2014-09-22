@@ -30,7 +30,7 @@ trexControllers.controller('ProjectDetailCtrl',
         $scope.project = Project.get({projectId: $routeParams.id});
         $scope.entries = Project.entries({projectId: $routeParams.id});
 
-        $scope.entries_tags = "";
+        $scope.entries_tags = [];
 
         $scope.order = "id";
         $scope.orderreverse = false;
@@ -50,6 +50,15 @@ trexControllers.controller('ProjectDetailCtrl',
             $scope.order = name;
         };
 
+        $scope.tagList = function(tags) {
+            var search = "";
+            angular.forEach(tags, function(value, key) {
+                search += value.name + ',';
+
+            });
+            return search;
+        };
+
         $scope.searchEntries = function() {
             $scope.entries = Project.entries(
                     {
@@ -57,22 +66,30 @@ trexControllers.controller('ProjectDetailCtrl',
                         from_date: $scope.entries_from_date,
                         to_date: $scope.entries_to_date,
                         state: $scope.entries_state,
-                        tag: $scope.entries_tags
+                        tag: $scope.tagList($scope.entries_tags)
                     }
                 );
             $scope.entries_loading = true;
         };
 
         $scope.addSearchTag = function(tag) {
-            if ($scope.entries_tags.indexOf(tag) == -1) {
-                if ($scope.entries_tags.length == 0) {
-                  $scope.entries_tags += tag;
+            for(var i = 0; i < $scope.entries_tags.length; i++) {
+                var value = $scope.entries_tags[i];
+                if (value.name == tag) {
+                    return;
                 }
-                else {
-                  $scope.entries_tags += "," + tag;
-                }
-            }
+            };
+            $scope.entries_tags.push({'name': tag});
         };
+
+        $scope.completeTag = function(query) {
+            return Project.tags(
+                    {
+                        projectId: $routeParams.id,
+                        name_like: query
+                    }).$promise;
+        };
+
     }
 ]);
 
