@@ -7,7 +7,8 @@
 'use strict';
 
 var trexApp = angular.module('trex.app',
-        ['ngRoute', 'ngCookies', 'trex.controllers', 'trex.filters',
+        ['ngRoute', 'ngCookies', 'ngTagsInput',
+         'trex.controllers', 'trex.filters',
          'trex.services', 'trex.directives']);
 
 trexApp.config(['$routeProvider',
