@@ -74,6 +74,17 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="searchuserabbr" class="col-sm-1 control-label">
+                            Users:
+                        </label>
+                        <div class="col-sm-7">
+                            <input ng-model="entries_user_abbr" type="search"
+                                class="form-control" id="searchuserabbr"
+                                ng-enter="searchEntries()"
+                                placeholder="users">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="searchtags" class="col-sm-1 control-label">
                             Tags:
                         </label>

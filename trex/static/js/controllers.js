@@ -66,6 +66,7 @@ trexControllers.controller('ProjectDetailCtrl',
                         from_date: $scope.entries_from_date,
                         to_date: $scope.entries_to_date,
                         state: $scope.entries_state,
+                        user_abbr: $scope.entries_user_abbr,
                         tag: $scope.tagList($scope.entries_tags)
                     }
                 );
