@@ -30,7 +30,11 @@ trexServices.factory('Project', ['$resource', 'Conf',
             {entries: {method: 'GET', isArray: true,
                        url: Conf.apiBase + '/projects/:projectId/entries',
                        params: {projectId: '@id'}
-                      }
+                      },
+             tags: {method: 'GET', isArray: true,
+                    url: Conf.apiBase + '/projects/:projectId/tags',
+                    params: {projectId: '@id'}
+                   }
            }
         );
     }
