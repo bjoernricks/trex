@@ -40,5 +40,7 @@ class Command(BaseCommand):
 
         with open(zeiterfassung_txt, "r") as f:
             zeiterfassung = Zeiterfassung(f, encoding)
-            created = project.create_entries_from_zeiterfassung(zeiterfassung)
-            self.stdout.write(u"Loaded %s entries" % created)
+            read, created = project.create_entries_from_zeiterfassung(
+                zeiterfassung)
+            self.stdout.write(u"Wrote %s of %s loaded entries" % (
+                created, read))
