@@ -15,6 +15,7 @@ from trex.parsers import PlainTextParser
 from trex.serializers import (
     ProjectSerializer, ProjectDetailSerializer, EntryDetailSerializer,
     TagDetailSerializer, ProjectEntrySerializer, ProjectTagSerializer,
+    ProjectUserSerializer,
 )
 from trex.utils import Zeiterfassung
 
@@ -92,6 +93,16 @@ class ProjectTagsListAPIView(ProjectMixin, generics.ListAPIView):
     def get_queryset(self):
         project = self.get_project()
         return project.tags.all().order_by("id")
+
+
+class ProjectUsersListAPIView(ProjectMixin, generics.ListAPIView):
+
+    serializer_class = ProjectUserSerializer
+    filter_class = filters.ProjectUserFilter
+
+    def get_queryset(self):
+        project = self.get_project()
+        return project.project_users.all().order_by("user_abbr")
 
 
 class EntryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
