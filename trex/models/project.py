@@ -40,7 +40,7 @@ class Project(models.Model):
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     users = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, through="ProjectUsers",
+        settings.AUTH_USER_MODEL, through="ProjectUser",
         related_name="projects")
 
     class Meta:
@@ -54,18 +54,13 @@ class Project(models.Model):
             read_count = 0
             write_count = 0
             for zentry in zeiterfassung.read():
-                try:
-                    user = ProjectUsers.objects.get(project=self,
-                                                    user_abbr=zentry.get_user()
-                                                    ).user
-                except ProjectUsers.DoesNotExist:
-                    user = None
-
+                user, _ = ProjectUser.objects.get_or_create(
+                    project=self, user_abbr=zentry.get_user()
+                )
                 entry, created  = Entry.objects.get_or_create(
                     project=self, date=zentry.get_date(),
                     duration=zentry.get_duration(), state=zentry.get_state(),
                     description=zentry.get_description(), user=user,
-                    user_abbr=zentry.user
                 )
                 read_count += 1
 
@@ -96,9 +91,7 @@ class Entry(models.Model):
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     state = models.CharField(max_length="5", blank=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
-    user_abbr = models.CharField("User abbreviation", max_length=25, blank=True,
-                                 default="")
+    user = models.ForeignKey("ProjectUser")
     tags = models.ManyToManyField("Tag", related_name="entries")
     objects = EntryQuerySet.as_manager(use_for_related_fields=True)
 
@@ -120,12 +113,12 @@ class Tag(models.Model):
         ordering = ("name",)
 
 
-class ProjectUsers(models.Model):
+class ProjectUser(models.Model):
 
     project = models.ForeignKey(Project)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
     user_abbr = models.CharField("User abbreviation for the project",
                                  max_length=25)
 
     class Meta:
-        unique_together = ("project", "user")
+        unique_together = ("project", "user_abbr")

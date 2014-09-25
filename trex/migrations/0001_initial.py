@@ -43,7 +43,6 @@ class Migration(migrations.Migration):
                 ('description', models.TextField()),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('state', models.CharField(max_length=b'5', blank=True)),
-                ('user_abbr', models.CharField(default=b'', max_length=25, verbose_name=b'User abbreviation', blank=True)),
             ],
             options={
                 'ordering': ('date', 'created'),
@@ -65,12 +64,12 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='ProjectUsers',
+            name='ProjectUser',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('user_abbr', models.CharField(max_length=25, verbose_name=b'User abbreviation for the project')),
                 ('project', models.ForeignKey(to='trex.Project')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
             },
@@ -91,13 +90,13 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.AlterUniqueTogether(
-            name='projectusers',
-            unique_together=set([('project', 'user')]),
+            name='projectuser',
+            unique_together=set([('project', 'user_abbr')]),
         ),
         migrations.AddField(
             model_name='project',
             name='users',
-            field=models.ManyToManyField(related_name=b'projects', through='trex.ProjectUsers', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(related_name=b'projects', through='trex.ProjectUser', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -115,7 +114,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='entry',
             name='user',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True),
+            field=models.ForeignKey(to='trex.ProjectUser'),
             preserve_default=True,
         ),
     ]
