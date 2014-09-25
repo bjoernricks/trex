@@ -43,8 +43,8 @@ class EntryFilter(django_filters.FilterSet):
     to_date = django_filters.DateFilter(name="date", lookup_type="lte")
     tag = MultipleTextFilter(name="tags__name")
     tag_like = MultipleTextFilter(name="tags__name", lookup_type="contains")
-    user_abbr = MultipleTextFilter(name="user_abbr")
-    user_abbr_like = MultipleTextFilter(name="user_abbr",
+    user_abbr = MultipleTextFilter(name="user__user_abbr")
+    user_abbr_like = MultipleTextFilter(name="user__user_abbr",
                                         lookup_type="contains")
 
     class Meta:
