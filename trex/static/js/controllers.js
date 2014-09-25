@@ -53,10 +53,10 @@ trexControllers.controller('ProjectDetailCtrl',
             $scope.order = name;
         };
 
-        $scope.tagList = function(tags) {
+        $scope.tagList = function(tags, attr) {
             var search = "";
             angular.forEach(tags, function(value, key) {
-                search += value.name + ',';
+                search += value[attr] + ',';
 
             });
             return search;
@@ -69,8 +69,8 @@ trexControllers.controller('ProjectDetailCtrl',
                         from_date: $scope.entries_from_date,
                         to_date: $scope.entries_to_date,
                         state: $scope.entries_state,
-                        user_abbr: $scope.entries_user_abbr,
-                        tag: $scope.tagList($scope.entries_tags)
+                        user_abbr: $scope.tagList($scope.entries_user_abbr, "user_abbr"),
+                        tag: $scope.tagList($scope.entries_tags, "name")
                     }
                 );
             $scope.entries_loading = true;
@@ -93,6 +93,14 @@ trexControllers.controller('ProjectDetailCtrl',
                         name_like: query
                     }).$promise;
         };
+
+        $scope.completeUser = function(query) {
+            return Project.users(
+                    {
+                        projectId: $routeParams.id,
+                        user_abbr_like: query
+                    }).$promise;
+        }
 
     }
 ]);
