@@ -115,7 +115,7 @@ class Tag(models.Model):
 
 class ProjectUser(models.Model):
 
-    project = models.ForeignKey(Project)
+    project = models.ForeignKey(Project, related_name="project_users")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
     user_abbr = models.CharField("User abbreviation for the project",
                                  max_length=25)
