@@ -10,7 +10,7 @@ import django_filters
 from django import forms
 from django.db.models import Q
 
-from trex.models import Entry, Tag
+from trex.models import Entry, Tag, ProjectUser
 
 
 class MultipleTextFilter(django_filters.Filter):
@@ -62,3 +62,14 @@ class TagFilter(django_filters.FilterSet):
     class Meta:
         model = Tag
         fields = ["name", "description"]
+
+
+class ProjectUserFilter(django_filters.FilterSet):
+
+    user_abbr = MultipleTextFilter(name="user_abbr")
+    user_abbr_like = MultipleTextFilter(name="user_abbr",
+                                        lookup_type="contains")
+
+    class Meta:
+        model = ProjectUser
+        fields = ["user_abbr"]
