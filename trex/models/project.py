@@ -91,7 +91,7 @@ class Entry(models.Model):
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     state = models.CharField(max_length="5", blank=True)
-    user = models.ForeignKey("ProjectUser")
+    user = models.ForeignKey("ProjectUser", related_name="entries")
     tags = models.ManyToManyField("Tag", related_name="entries")
     objects = EntryQuerySet.as_manager(use_for_related_fields=True)
 
