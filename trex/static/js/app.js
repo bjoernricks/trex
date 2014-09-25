@@ -7,7 +7,7 @@
 'use strict';
 
 var trexApp = angular.module('trex.app',
-        ['ngRoute', 'ngCookies', 'ngTagsInput',
+        ['ngRoute', 'ngCookies', 'ngTagsInput', 'angular-loading-bar',
          'trex.controllers', 'trex.filters',
          'trex.services', 'trex.directives']);
 
