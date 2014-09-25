@@ -1,0 +1,22 @@
+# Byte-compiled
+*.pyc
+
+# Distribution / packaging
+build/
+*.egg-info/
+.installed.cfg
+*.egg
+
+
+# Installer logs
+pip-log.txt
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
