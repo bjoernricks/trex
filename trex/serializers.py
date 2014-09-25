@@ -26,11 +26,12 @@ class ProjectDetailSerializer(HyperlinkedModelSerializer):
 
     entries = HyperlinkedIdentityField(view_name="project-entries-list")
     tags = HyperlinkedIdentityField(view_name="project-tags-list")
+    users = HyperlinkedIdentityField(view_name="project-users-list")
 
     class Meta:
         model = Project
         fields = ("id", "name", "description", "active", "created", "entries",
-                  "tags")
+                  "tags", "users")
 
 
 class EntryTagsSerializer(HyperlinkedModelSerializer):
