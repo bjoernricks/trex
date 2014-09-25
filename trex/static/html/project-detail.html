@@ -30,79 +30,85 @@
 
             <h3 id="entries">Entries</h3>
 
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="from_date" class="col-sm-1 control-label">
+                        From date:
+                    </label>
+                    <div class="col-sm-3">
+                        <input ng-model="entries_from_date" type="search"
+                        class="form-control" id="from_date"
+                        ng-enter="searchEntries()"
+                        placeholder="date">
+                    </div>
+                    <label for="to_date" class="col-sm-1 control-label">
+                        To date:
+                    </label>
+                    <div class="col-sm-3">
+                        <input ng-model="entries_to_date" type="search"
+                        class="form-control" id="to_date"
+                        ng-enter="searchEntries()"
+                        placeholder="date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="searchstate" class="col-sm-1 control-label">
+                        State:
+                    </label>
+                    <div class="col-sm-3">
+                        <input ng-model="entries_state" type="search"
+                            class="form-control" id="searchstate"
+                            ng-enter="searchEntries()"
+                            placeholder="state">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="searchuserabbr" class="col-sm-1 control-label">
+                        Users:
+                    </label>
+                    <div class="col-sm-7">
+                        <tags-input ng-model="entries_user_abbr"
+                            display-property="user_abbr"
+                            placeholder="Add a user"
+                            add-from-autocomplete-only="true"
+                            min-length="1"
+                            on-tag-added="searchEntries()"
+                            on-tag-removed="searchEntries()">
+                            <auto-complete source="completeUser($query)"
+                                min-length="1"></auto-complete>
+                        </tags-input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="searchtags" class="col-sm-1 control-label">
+                        Tags:
+                    </label>
+                    <div class="col-sm-7">
+                        <tags-input ng-model="entries_tags" display-property="name"
+                            add-from-autocomplete-only="true"
+                            min-length="1"
+                            on-tag-added="searchEntries()"
+                            on-tag-removed="searchEntries()">
+                            <auto-complete source="completeTag($query)"
+                                min-length="1"></auto-complete>
+                        </tags-input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 col-md-offset-1">
+                        <button ng-click="searchEntries()"
+                            type="button" class="btn btn-default btn-block">
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </form>
+
             <div ng-show="!entries.length && !entries_loading">
                 No entries evailable.
             </div>
 
             <div ng-show="entries.length">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label for="from_date" class="col-sm-1 control-label">
-                            From date:
-                        </label>
-                        <div class="col-sm-3">
-                            <input ng-model="entries_from_date" type="search"
-                            class="form-control" id="from_date"
-                            ng-enter="searchEntries()"
-                            placeholder="date">
-                        </div>
-                        <label for="to_date" class="col-sm-1 control-label">
-                            To date:
-                        </label>
-                        <div class="col-sm-3">
-                            <input ng-model="entries_to_date" type="search"
-                            class="form-control" id="to_date"
-                            ng-enter="searchEntries()"
-                            placeholder="date">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="searchstate" class="col-sm-1 control-label">
-                            State:
-                        </label>
-                        <div class="col-sm-3">
-                            <input ng-model="entries_state" type="search"
-                                class="form-control" id="searchstate"
-                                ng-enter="searchEntries()"
-                                placeholder="state">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="searchuserabbr" class="col-sm-1 control-label">
-                            Users:
-                        </label>
-                        <div class="col-sm-7">
-                            <input ng-model="entries_user_abbr" type="search"
-                                class="form-control" id="searchuserabbr"
-                                ng-enter="searchEntries()"
-                                placeholder="users">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="searchtags" class="col-sm-1 control-label">
-                            Tags:
-                        </label>
-                        <div class="col-sm-7">
-                            <tags-input ng-model="entries_tags" display-property="name"
-                                add-from-autocomplete-only="true"
-                                min-length="1"
-                                on-tag-added="searchEntries()"
-                                on-tag-removed="searchEntries()">
-                                <auto-complete source="completeTag($query)"
-                                    min-length="1"></auto-complete>
-                            </tags-input>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2 col-md-offset-1">
-                            <button ng-click="searchEntries()"
-                                type="button" class="btn btn-default btn-block">
-                                Filter
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
                 <form class="form-horizontal" role="form"
                     style="margin-top: 3em;">
                     <div class="form-group">
