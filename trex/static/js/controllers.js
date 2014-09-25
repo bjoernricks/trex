@@ -27,6 +27,9 @@ trexControllers.controller('ProjectListCtrl', ['$scope', 'Project',
 trexControllers.controller('ProjectDetailCtrl',
     ['$scope', '$routeParams', 'Project',
     function($scope, $routeParams, Project) {
+        $scope.project_loading = true;
+        $scope.entries_loading = true;
+
         $scope.project = Project.get({projectId: $routeParams.id});
         $scope.entries = Project.entries({projectId: $routeParams.id});
 
