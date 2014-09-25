@@ -3,5 +3,6 @@ syntax: glob
 *.pyc
 *~
 *.sqlite3
+.DS_Store
 trex/settings.py
 secret.key
