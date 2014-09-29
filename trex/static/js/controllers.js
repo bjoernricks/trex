@@ -30,6 +30,41 @@ trexControllers.controller('ProjectListCtrl', ['$scope', 'Project',
     }
 ]);
 
+trexControllers.controller('ProjectCreateCtrl', ['$scope', '$location',
+        '$timeout', 'Project', function($scope, $location, $timeout, Project) {
+
+        $scope.succes = false;
+        $scope.error = false;
+
+        $scope.successCreate = function(value, headers) {
+            $scope.success = true;
+            $timeout(function() {
+                $location.path('/projects/' + value.id);
+            }, 2000);
+        };
+
+        $scope.failCreate = function(response) {
+            console.error(response);
+            $scope.error = true;
+            $("#error-frame").html(response.data);
+        };
+
+        $scope.createProject = function() {
+            $scope.succes = false;
+            $scope.error = false;
+
+            var project = new Project();
+
+            project.name = $scope.name;
+            project.description = $scope.description;
+            project.active = true;
+
+            Project.save(project, $scope.successCreate, $scope.failCreate);
+        };
+
+    }
+]);
+
 trexControllers.controller('ProjectDetailCtrl',
     ['$scope', '$routeParams', 'Project',
     function($scope, $routeParams, Project) {

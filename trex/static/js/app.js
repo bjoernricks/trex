@@ -23,6 +23,10 @@ trexApp.config(['$routeProvider', '$resourceProvider',
                 templateUrl: 'static/html/projects.html',
                 controller: 'ProjectListCtrl'
             }).
+            when("/projects/create/", {
+                templateUrl: 'static/html/project-create.html',
+                controller: 'ProjectCreateCtrl'
+            }).
             when("/projects/:id/", {
                 templateUrl: 'static/html/project-detail.html',
                 controller: 'ProjectDetailCtrl'
