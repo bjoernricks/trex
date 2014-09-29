@@ -3,62 +3,77 @@
         <div class="col-md-8">
             <h2>Projects</h2>
 
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label for="searchinput" class="col-sm-1 control-label">
-                        Search:
-                    </label>
-                    <div class="col-sm-3">
-                        <input ng-model="query" type="search"
-                            class="form-control" id="searchinput"
-                            placeholder="search">
+
+            <div ng-show="!projects.length && !projects_loading">
+                No projects evailable.
+            </div>
+
+            <div ng-show="projects.length">
+
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="searchinput" class="col-sm-1 control-label">
+                            Search:
+                        </label>
+                        <div class="col-sm-3">
+                            <input ng-model="query" type="search"
+                                class="form-control" id="searchinput"
+                                placeholder="search">
+                        </div>
                     </div>
-                </div>
-            </form>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>
-                            <a ng-click="setOrder('name')">
-                                Name
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setOrder('description')">
-                                Description
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setOrder('active')">
-                                Active
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setOrder('created')">
-                                Created
-                            </a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="proj in projects | filter:query | orderBy:order:orderreverse">
-                        <td>
-                            <a href="#/projects/{{proj.id}}">
-                                {{proj.name}}
-                            </a>
-                        </td>
-                        <td>
-                            {{proj.description}}
-                        </td>
-                        <td>
-                            {{proj.active | checkmark}}
-                        </td>
-                        <td>
-                            {{proj.created | date: 'short'}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                </form>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a ng-click="setOrder('name')">
+                                    Name
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setOrder('description')">
+                                    Description
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setOrder('active')">
+                                    Active
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setOrder('created')">
+                                    Created
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="proj in projects | filter:query | orderBy:order:orderreverse">
+                            <td>
+                                <a href="#/projects/{{proj.id}}">
+                                    {{proj.name}}
+                                </a>
+                            </td>
+                            <td>
+                                {{proj.description}}
+                            </td>
+                            <td>
+                                {{proj.active | checkmark}}
+                            </td>
+                            <td>
+                                {{proj.created | date: 'short'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <div class="list-group">
+                <a href="#/projects/create" class="list-group-item">
+                    Create project
+                </a>
+            </div>
         </div>
     </div>
 </div>

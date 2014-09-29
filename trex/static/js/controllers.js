@@ -10,10 +10,16 @@ var trexControllers = angular.module('trex.controllers', []);
 
 trexControllers.controller('ProjectListCtrl', ['$scope', 'Project',
     function($scope, Project) {
+        $scope.projects_loading = true;
+
         $scope.projects = Project.query();
 
         $scope.order = "name";
         $scope.orderreverse = false;
+
+        $scope.$watch('projects.$resolved', function(value) {
+            $scope.projects_loading = !value;
+        });
 
         $scope.setOrder = function(name) {
             if (name == $scope.order) {
