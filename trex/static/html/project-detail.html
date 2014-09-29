@@ -179,7 +179,9 @@
                                 {{entry.state}}
                             </td>
                             <td>
-                                {{entry.user.user_abbr}}
+                                <span ng-click="addUser(entry.user)">
+                                    {{entry.user.user_abbr}}
+                                </span>
                             </td>
                             <td>
                                 {{entry.description}}

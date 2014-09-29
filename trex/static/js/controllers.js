@@ -75,6 +75,7 @@ trexControllers.controller('ProjectDetailCtrl',
         $scope.entries = Project.entries({projectId: $routeParams.id});
 
         $scope.entries_tags = [];
+        $scope.entries_user_abbr = [];
 
         $scope.order = "id";
         $scope.orderreverse = false;
@@ -125,6 +126,16 @@ trexControllers.controller('ProjectDetailCtrl',
                 }
             };
             $scope.entries_tags.push({'name': tag});
+        };
+
+        $scope.addUser = function(user) {
+            for(var i = 0; i < $scope.entries_user_abbr.length; i++) {
+                var value = $scope.entries_user_abbr[i];
+                if (value.user_abbr == user.user_abbr) {
+                    return;
+                }
+            };
+            $scope.entries_user_abbr.push(user);
         };
 
         $scope.completeTag = function(query) {
