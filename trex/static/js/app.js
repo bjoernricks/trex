@@ -19,6 +19,9 @@ trexApp.config(['$routeProvider', '$resourceProvider',
         // $resourceProvider.defaults.stripTrailingSlashes = false;
 
         $routeProvider.
+            when("/", {
+                templateUrl: 'static/html/index.html'
+            }).
             when("/projects/", {
                 templateUrl: 'static/html/projects.html',
                 controller: 'ProjectListCtrl'
