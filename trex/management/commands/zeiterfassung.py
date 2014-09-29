@@ -21,6 +21,8 @@ class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option("-e", "--encoding", dest="encoding", default="utf-8",
                     help="Encoding of the input file", type="string"),
+        make_option("--report-skipped", dest="skipped", action="store_true",
+                    default=False, help="Show details of skipped entries")
     )
 
     def handle(self, *args, **options):
@@ -40,7 +42,13 @@ class Command(BaseCommand):
 
         with open(zeiterfassung_txt, "r") as f:
             zeiterfassung = Zeiterfassung(f, encoding)
-            read, created = project.create_entries_from_zeiterfassung(
+            written, skipped = project.create_entries_from_zeiterfassung(
                 zeiterfassung)
-            self.stdout.write(u"Wrote %s of %s loaded entries" % (
-                created, read))
+            self.stdout.write(u"Wrote %s loaded entries. %s entries have been "
+                              u"skipped." % (len(written), len(skipped)))
+            if options.get("skipped", False) and skipped:
+                self.stdout.write(u"Skipped entries:")
+                for entry in skipped:
+                    self.stdout.write(u"Line: %s %s %s" % (
+                        entry.get_line_number(), entry.get_user(),
+                        entry.get_description))
