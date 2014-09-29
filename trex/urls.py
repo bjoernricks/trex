@@ -16,7 +16,7 @@ urlpatterns = patterns(
         TemplateView.as_view(template_name="index.html"),
         name="index",
         ),
-    url(r"^api/1/projects/$",
+    url(r"^api/1/projects/?$",
         project.ProjectListCreateAPIView.as_view(),
         name="project-list"),
     url(r"^api/1/projects/(?P<pk>[0-9]+)/$",
