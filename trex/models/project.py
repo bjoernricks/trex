@@ -57,7 +57,7 @@ class Project(models.Model):
                 user, _ = ProjectUser.objects.get_or_create(
                     project=self, user_abbr=zentry.get_user()
                 )
-                entry, created  = Entry.objects.get_or_create(
+                entry, created = Entry.objects.get_or_create(
                     project=self, date=zentry.get_date(),
                     duration=zentry.get_duration(), state=zentry.get_state(),
                     description=zentry.get_description(), user=user,
