@@ -7,22 +7,27 @@
 'use strict';
 
 var trexApp = angular.module('trex.app',
-        ['ngRoute', 'ngCookies', 'ngTagsInput', 'angular-loading-bar',
+        ['ngRoute', 'ngCookies', 'ngTagsInput', 'ngResource',
+         'angular-loading-bar',
          'trex.controllers', 'trex.filters',
          'trex.services', 'trex.directives']);
 
-trexApp.config(['$routeProvider',
-    function($routeProvider) {
+trexApp.config(['$routeProvider', '$resourceProvider',
+    function($routeProvider, $resourceProvider) {
+        // will be available with Angular JS 1.3
+        // https://github.com/angular/angular.js/commit/3878be52f6d95fca4c386d4a5523f3c8fcb04270
+        // $resourceProvider.defaults.stripTrailingSlashes = false;
+
         $routeProvider.
             when("/projects/", {
                 templateUrl: 'static/html/projects.html',
                 controller: 'ProjectListCtrl'
             }).
-            when("/projects/:id", {
+            when("/projects/:id/", {
                 templateUrl: 'static/html/project-detail.html',
                 controller: 'ProjectDetailCtrl'
             }).
-            when("/entries/:id", {
+            when("/entries/:id/", {
                 templateUrl: 'static/html/entry-detail.html',
                 controller: 'EntryDetailCtrl'
             }).
