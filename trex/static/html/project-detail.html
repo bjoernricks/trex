@@ -32,6 +32,11 @@
 
             <form class="form-horizontal" role="form">
                 <div class="form-group">
+                    <input type="file" file-upload multiple/>
+                    <ul>
+                        <li ng-repeat="file in files">{{file.name}}</li>
+                    </ul>
+                    <button ng-click="uploadFiles()">Submit</button>
                     <label for="from_date" class="col-sm-1 control-label">
                         From date:
                     </label>

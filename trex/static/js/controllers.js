@@ -66,8 +66,8 @@ trexControllers.controller('ProjectCreateCtrl', ['$scope', '$location',
 ]);
 
 trexControllers.controller('ProjectDetailCtrl',
-    ['$scope', '$routeParams', 'Project',
-    function($scope, $routeParams, Project) {
+    ['$scope', '$routeParams', 'Project', '$http', 'Conf',
+    function($scope, $routeParams, Project, $http, Conf) {
         $scope.project_loading = true;
         $scope.entries_loading = true;
 
@@ -153,6 +153,32 @@ trexControllers.controller('ProjectDetailCtrl',
                         user_abbr_like: query
                     }).$promise;
         }
+
+        $scope.files = [];
+
+        $scope.$on("fileSelected", function (event, args) {
+            $scope.$apply(function () {
+                $scope.files.push(args.file);
+            });
+        });
+
+        $scope.uploadFiles = function() {
+             var fileReader = new FileReader();
+             fileReader.onload = function(e) {
+                 console.log(e.target.result);
+                 $http({
+                     method: 'POST',
+                     headers: { 'Content-Type': 'text/plain'},
+                     url: Conf.apiBase + '/projects/' + $routeParams.id +
+                     '/zeiterfassung/',
+                     data: e.target.result
+                 });
+             };
+             for (var i=0; i < $scope.files.length; i++) {
+                fileReader.readAsBinaryString($scope.files[i]);
+             }
+
+        };
 
     }
 ]);
