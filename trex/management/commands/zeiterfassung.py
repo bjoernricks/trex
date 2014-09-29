@@ -49,6 +49,6 @@ class Command(BaseCommand):
             if options.get("skipped", False) and skipped:
                 self.stdout.write(u"Skipped entries:")
                 for entry in skipped:
-                    self.stdout.write(u"Line: %s %s %s" % (
+                    self.stdout.write(u"Line %s: %s %s" % (
                         entry.get_line_number(), entry.get_user(),
-                        entry.get_description))
+                        entry.get_description()))
