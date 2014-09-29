@@ -51,8 +51,9 @@ class Project(models.Model):
 
     def create_entries_from_zeiterfassung(self, zeiterfassung):
         with transaction.atomic():
-            read_count = 0
-            write_count = 0
+            written = []
+            skipped = []
+
             for zentry in zeiterfassung.read():
                 user, _ = ProjectUser.objects.get_or_create(
                     project=self, user_abbr=zentry.get_user()
@@ -62,22 +63,21 @@ class Project(models.Model):
                     duration=zentry.get_duration(), state=zentry.get_state(),
                     description=zentry.get_description(), user=user,
                 )
-                read_count += 1
-
                 # raise ValueError(
                 #     "Zeiterfassung entry %s has already been imported "
                 #     "to the project %s" % (zentry, self.name))
 
                 if not created:
                     # entry is already in db
+                    skipped.append(zentry)
                     continue
 
                 tag, created = Tag.objects.get_or_create(
                     project=self, name=zentry.get_workpackage()
                 )
                 entry.tags.add(tag)
-                write_count += 1
-            return read_count, write_count
+                written.append(zentry)
+            return written, skipped
 
     def __unicode__(self):
         return "Project %s ID %s" % (self.name, self.id)
