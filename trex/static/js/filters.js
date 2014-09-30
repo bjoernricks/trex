@@ -70,3 +70,13 @@ module.filter('sumByKey', function() {
         return sum;
     };
 });
+
+module.filter('kb', function() {
+    return function(data) {
+        if (typeof(data) === 'undefined') {
+            return 0;
+        }
+
+        return data / 1024;
+    };
+});
