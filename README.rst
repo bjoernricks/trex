@@ -21,6 +21,12 @@ Create a secrets file::
     $ touch secret.key
     $ $EDITOR secret.key # insert secret to file
 
+or::
+
+    $ echo "123" > secret.key
+    $ python manage.py secretkey > secret.key.really
+    $ mv secret.key.really secret.key
+
 Create the database::
 
     $ python manage.py migrate
