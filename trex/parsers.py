@@ -32,7 +32,7 @@ class PlainTextParser(BaseParser):
             return None
 
         charset = None
-        msplit = media_type.split(" ");
+        msplit = media_type.split(" ")
         for m in msplit:
             m = m.strip()
             if "charset" in m:
