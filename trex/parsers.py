@@ -5,7 +5,9 @@
 # See LICENSE comming with the source of 'trex' for details.
 #
 
-from io import TextIOWrapper
+from io import TextIOWrapper, BytesIO
+
+from django.core.handlers.wsgi import WSGIRequest
 
 from rest_framework.parsers import BaseParser
 
@@ -18,6 +20,10 @@ class PlainTextParser(BaseParser):
         print "Running PlainTextParser"
         charset = self.get_charset(media_type)
         if charset:
+
+            if isinstance(stream, WSGIRequest):
+                stream = BytesIO(stream.read())
+
             stream = TextIOWrapper(stream, encoding=charset)
 
         return stream
