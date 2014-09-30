@@ -63,6 +63,20 @@ class ZeitEntry(object):
     def get_line_number(self):
         return self.line_nr
 
+    def to_dict(self):
+        return {
+            "line_nr": self.get_line_number(),
+            "day": self.day,
+            "month": self.month,
+            "year": self.year,
+            "hours": self.hours,
+            "minutes": self.minutes,
+            "state": self.get_state(),
+            "description": self.get_description(),
+            "user": self.get_user(),
+            "workpackage": self.get_workpackage(),
+        }
+
 
 class Zeiterfassung(object):
 
