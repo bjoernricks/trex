@@ -17,7 +17,6 @@ class PlainTextParser(BaseParser):
     media_type = "text/plain"
 
     def parse(self, stream, media_type=None, parser_context=None):
-        print "Running PlainTextParser"
         charset = self.get_charset(media_type)
         if charset:
 
