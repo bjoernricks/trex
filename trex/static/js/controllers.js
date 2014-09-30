@@ -71,6 +71,9 @@ trexControllers.controller('ProjectDetailCtrl',
         $scope.project_loading = true;
         $scope.entries_loading = true;
 
+        $scope.succes = false;
+        $scope.error = false;
+
         $scope.project = Project.get({projectId: $routeParams.id});
         $scope.entries = Project.entries({projectId: $routeParams.id});
 
@@ -152,17 +155,18 @@ trexControllers.controller('ProjectDetailCtrl',
                         projectId: $routeParams.id,
                         user_abbr_like: query
                     }).$promise;
-        }
+        };
 
-        $scope.files = [];
+        $scope.zeiterfassung_files = [];
 
-        $scope.$on("fileSelected", function (event, args) {
-            $scope.$apply(function () {
-                $scope.files.push(args.file);
+        $scope.$on("fileSelected", function(event, args) {
+            $scope.$apply(function() {
+                $scope.zeiterfassung_files.push(args.file);
             });
         });
 
         $scope.uploadFiles = function() {
+            $scope.resetDialogs();
              var fileReader = new FileReader();
              fileReader.onload = function(e) {
                  console.log(e.target.result);
@@ -172,12 +176,41 @@ trexControllers.controller('ProjectDetailCtrl',
                      url: Conf.apiBase + '/projects/' + $routeParams.id +
                      '/zeiterfassung/',
                      data: e.target.result
+                 }).
+                 success(function(data, status, headers, config) {
+                     $scope.zeiterfassung_files = [];
+                     $scope.showSuccess(
+                         'Upload successfull. ' + data['written'].length +
+                         ' new entries loaded. ' + data['skipped'].length +
+                         ' entries skipped.');
+                     $scope.searchEntries();
+                 }).
+                 error(function(data, status, headers, config) {
+                     $scope.showError("Upload failed", data);
                  });
              };
-             for (var i=0; i < $scope.files.length; i++) {
-                fileReader.readAsBinaryString($scope.files[i]);
+             for (var i = 0; i < $scope.zeiterfassung_files.length; i++) {
+                fileReader.readAsBinaryString($scope.zeiterfassung_files[i]);
              }
 
+        };
+
+        $scope.resetDialogs = function() {
+            $scope.error = false;
+            $scope.success = false;
+        };
+
+        $scope.showSuccess = function(message) {
+            $scope.success = true;
+            $scope.success_message = message;
+        };
+
+        $scope.showError = function(message, data) {
+            $scope.error = true;
+            $scope.error_message = message;
+            if (data) {
+                $("#error-frame").html(data);
+            }
         };
 
     }
