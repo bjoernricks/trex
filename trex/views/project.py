@@ -47,7 +47,8 @@ class ProjectZeiterfassungAPIView(generics.CreateAPIView):
 
         zeiterfassung = Zeiterfassung(request.DATA)
         try:
-            proj.create_entries_from_zeiterfassung(zeiterfassung)
+            written, skipped = proj.create_entries_from_zeiterfassung(
+                zeiterfassung)
         except Exception, e:
             errors = self._create_errors(str(e))
             # TODO review if e could contain info not suited for the user
@@ -55,6 +56,9 @@ class ProjectZeiterfassungAPIView(generics.CreateAPIView):
 
         serializer = self.get_serializer(proj)
         headers = self.get_success_headers(serializer.data)
+        data = serializer.data
+        data["written"] = [entry.to_dict() for entry in written]
+        data["skipped"] = [entry.to_dict() for entry in skipped]
         return Response(serializer.data, status=status.HTTP_201_CREATED,
                         headers=headers)
 
