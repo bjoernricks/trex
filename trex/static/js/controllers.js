@@ -114,7 +114,8 @@ trexControllers.controller('ProjectDetailCtrl',
                         from_date: $scope.entries_from_date,
                         to_date: $scope.entries_to_date,
                         state: $scope.entries_state,
-                        user_abbr: $scope.tagList($scope.entries_user_abbr, "user_abbr"),
+                        user_abbr: $scope.tagList($scope.entries_user_abbr,
+                            "user_abbr"),
                         tag: $scope.tagList($scope.entries_tags, "name"),
                         tag_like: $scope.entries_tags_like,
                         description: $scope.entries_description,
@@ -125,22 +126,22 @@ trexControllers.controller('ProjectDetailCtrl',
         };
 
         $scope.addSearchTag = function(tag) {
-            for(var i = 0; i < $scope.entries_tags.length; i++) {
+            for (var i = 0; i < $scope.entries_tags.length; i++) {
                 var value = $scope.entries_tags[i];
                 if (value.name == tag) {
                     return;
                 }
-            };
+            }
             $scope.entries_tags.push({'name': tag});
         };
 
         $scope.addUser = function(user) {
-            for(var i = 0; i < $scope.entries_user_abbr.length; i++) {
+            for (var i = 0; i < $scope.entries_user_abbr.length; i++) {
                 var value = $scope.entries_user_abbr[i];
                 if (value.user_abbr == user.user_abbr) {
                     return;
                 }
-            };
+            }
             $scope.entries_user_abbr.push(user);
         };
 
