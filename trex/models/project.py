@@ -62,6 +62,7 @@ class Project(models.Model):
                     project=self, date=zentry.get_date(),
                     duration=zentry.get_duration(), state=zentry.get_state(),
                     description=zentry.get_description(), user=user,
+                    workpackage=zentry.get_workpackage(),
                 )
                 # raise ValueError(
                 #     "Zeiterfassung entry %s has already been imported "
