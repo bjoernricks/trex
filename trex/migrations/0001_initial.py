@@ -43,6 +43,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField()),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('state', models.CharField(max_length=b'5', blank=True)),
+                ('workpackage', models.CharField(max_length=255, blank=True)),
             ],
             options={
                 'ordering': ('date', 'created'),
@@ -68,7 +69,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('user_abbr', models.CharField(max_length=25, verbose_name=b'User abbreviation for the project')),
-                ('project', models.ForeignKey(to='trex.Project')),
+                ('project', models.ForeignKey(related_name=b'project_users', to='trex.Project')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
@@ -114,7 +115,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='entry',
             name='user',
-            field=models.ForeignKey(to='trex.ProjectUser'),
+            field=models.ForeignKey(related_name=b'entries', to='trex.ProjectUser'),
             preserve_default=True,
         ),
     ]
