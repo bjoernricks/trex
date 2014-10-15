@@ -77,6 +77,18 @@ class Project(models.Model):
                     project=self, name=zentry.get_workpackage()
                 )
                 entry.tags.add(tag)
+
+                str_tags = zentry.get_workpackage().split("-")
+                for str_tag in str_tags:
+
+                    if not str_tag:
+                        continue
+
+                    tag, _ = Tag.objects.get_or_create(
+                        project=self, name=str_tag
+                    )
+                    entry.tags.add(tag)
+
                 written.append(zentry)
             return written, skipped
 
