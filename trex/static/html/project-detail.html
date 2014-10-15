@@ -199,6 +199,11 @@
                                 </a>
                             </th>
                             <th>
+                                <a ng-click="setOrder('workpackage')">
+                                    Workpackage
+                                </a>
+                            </th>
+                            <th>
                                 <a ng-click="setOrder('tags')">
                                     Tags
                                 </a>
@@ -227,6 +232,9 @@
                             </td>
                             <td>
                                 {{entry.description}}
+                            </td>
+                            <td>
+                                {{entry.workpackage}}
                             </td>
                             <td>
                                 <span class="label label-default"
