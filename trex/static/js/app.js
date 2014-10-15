@@ -8,7 +8,7 @@
 
 var trexApp = angular.module('trex.app',
         ['ngRoute', 'ngCookies', 'ngTagsInput', 'ngResource',
-         'angular-loading-bar',
+         'angular-loading-bar', 'ui.bootstrap',
          'trex.controllers', 'trex.filters',
          'trex.services', 'trex.directives']);
 
