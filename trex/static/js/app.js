@@ -14,9 +14,7 @@ var trexApp = angular.module('trex.app',
 
 trexApp.config(['$routeProvider', '$resourceProvider',
     function($routeProvider, $resourceProvider) {
-        // will be available with Angular JS 1.3
-        // https://github.com/angular/angular.js/commit/3878be52f6d95fca4c386d4a5523f3c8fcb04270
-        // $resourceProvider.defaults.stripTrailingSlashes = false;
+        $resourceProvider.defaults.stripTrailingSlashes = false;
 
         $routeProvider.
             when("/", {
