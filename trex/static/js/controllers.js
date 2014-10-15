@@ -111,8 +111,10 @@ trexControllers.controller('ProjectDetailCtrl',
             $scope.entries = Project.entries(
                     {
                         projectId: $routeParams.id,
-                        from_date: $scope.entries_from_date,
-                        to_date: $scope.entries_to_date,
+                        from_date: $scope.dateToString(
+                            $scope.entries_from_date),
+                        to_date: $scope.dateToString(
+                            $scope.entries_to_date),
                         state: $scope.entries_state,
                         user_abbr: $scope.tagList($scope.entries_user_abbr,
                             "user_abbr"),
@@ -215,6 +217,40 @@ trexControllers.controller('ProjectDetailCtrl',
             if (data) {
                 $("#error-frame").html(data);
             }
+        };
+
+        $scope.openFromDatepicker = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened_from = true;
+        };
+
+        $scope.openToDatepicker = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened_to = true;
+        };
+
+        $scope.dateToString = function(date) {
+            if (!(date instanceof Date)) {
+                return date;
+            }
+
+            var dd = date.getDate();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+
+            var mm = date.getMonth() + 1;
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+
+            var yyyy = date.getFullYear();
+
+            return dd + '.' + mm + '.' + yyyy;
         };
 
     }
