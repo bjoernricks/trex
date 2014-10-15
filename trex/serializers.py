@@ -65,7 +65,7 @@ class EntryDetailSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Entry
         fields = ("url", "id", "date", "duration", "description", "state",
-                  "user", "created", "project", "tags")
+                  "user", "created", "project", "workpackage", "tags")
 
 
 class ProjectUserSerializer(HyperlinkedModelSerializer):
@@ -89,7 +89,7 @@ class ProjectEntrySerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Entry
         fields = ("url", "id", "date", "duration", "description", "state",
-                  "user", "created", "tags")
+                  "user", "created", "workpackage", "tags")
 
 
 class ProjectTagSerializer(HyperlinkedModelSerializer):
