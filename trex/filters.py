@@ -47,6 +47,8 @@ class EntryFilter(django_filters.FilterSet):
     user_abbr_like = MultipleTextFilter(name="user__user_abbr",
                                         lookup_type="contains")
     description = MultipleTextFilter(name="description", lookup_type="contains")
+    workpackage_like = MultipleTextFilter(name="workpackage",
+                                          lookup_type="contains")
 
     class Meta:
         model = Entry
