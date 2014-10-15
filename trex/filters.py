@@ -46,10 +46,11 @@ class EntryFilter(django_filters.FilterSet):
     user_abbr = MultipleTextFilter(name="user__user_abbr")
     user_abbr_like = MultipleTextFilter(name="user__user_abbr",
                                         lookup_type="contains")
+    description = MultipleTextFilter(name="description", lookup_type="contains")
 
     class Meta:
         model = Entry
-        fields = ["from_date", "to_date", "state"]
+        fields = ["from_date", "to_date", "state", "description"]
 
 
 class TagFilter(django_filters.FilterSet):
