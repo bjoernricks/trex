@@ -91,9 +91,7 @@
                             display-property="user_abbr"
                             placeholder="Add a user"
                             add-from-autocomplete-only="true"
-                            min-length="1"
-                            on-tag-added="searchEntries()"
-                            on-tag-removed="searchEntries()">
+                            min-length="1">
                             <auto-complete source="completeUser($query)"
                                 min-length="1"></auto-complete>
                         </tags-input>
@@ -117,9 +115,7 @@
                     <div class="col-sm-7">
                         <tags-input ng-model="entries_tags" display-property="name"
                             add-from-autocomplete-only="true"
-                            min-length="1"
-                            on-tag-added="searchEntries()"
-                            on-tag-removed="searchEntries()">
+                            min-length="1">
                             <auto-complete source="completeTag($query)"
                                 min-length="1"></auto-complete>
                         </tags-input>
