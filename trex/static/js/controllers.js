@@ -117,7 +117,8 @@ trexControllers.controller('ProjectDetailCtrl',
                         user_abbr: $scope.tagList($scope.entries_user_abbr, "user_abbr"),
                         tag: $scope.tagList($scope.entries_tags, "name"),
                         tag_like: $scope.entries_tags_like,
-                        description: $scope.entries_description
+                        description: $scope.entries_description,
+                        workpackage_like: $scope.entries_workpackage
                     }
                 );
             $scope.entries_loading = true;

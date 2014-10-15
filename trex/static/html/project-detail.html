@@ -100,6 +100,17 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="searchworkpackage" class="col-sm-1 control-label">
+                        Workpackage:
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" ng-model="entries_workpackage"
+                        id="searchworkpackage"
+                        class="form-control" ng-enter="searchEntries()"
+                        placeholder="Workpackage like">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="searchtags" class="col-sm-1 control-label">
                         Tags:
                     </label>
