@@ -8,9 +8,10 @@
 import warnings
 
 from django.core.paginator import Page
+from django.db.models import Sum
 
 from rest_framework.serializers import (
-    HyperlinkedModelSerializer, HyperlinkedIdentityField,
+    HyperlinkedModelSerializer, HyperlinkedIdentityField, Serializer
 )
 
 from trex.models.project import Project, Entry, Tag, ProjectUser
@@ -139,6 +140,37 @@ class ProjectEntrySerializer(HyperlinkedModelSerializer):
         model = Entry
         fields = ("url", "id", "date", "duration", "description", "state",
                   "user", "created", "workpackage", "tags")
+
+
+class ProjectEntrySumsSerializer(UpdateDataSerializerMixin, Serializer):
+
+    class Meta:
+        model = Entry
+
+    def get_data(self):
+        data = {}
+
+        sum_values = self.object.values("workpackage").annotate(
+            duration=Sum("duration")).order_by("workpackage")
+
+        workpackage_sums = []
+        for value in sum_values:
+            workpackage_sums.append({"name": value["workpackage"],
+                                     "duration": value["duration"]})
+
+        data["workpackage_sums"] = workpackage_sums
+
+        sum_values = self.object.values("tags__name").annotate(
+            duration=Sum("duration")).order_by("tags__name")
+
+        tags_sums = []
+        for value in sum_values:
+            tags_sums.append({"name": value["tags__name"],
+                              "duration": value["duration"]})
+        data["tag_sums"] = tags_sums
+        data["sum"] = self.object.all().aggregate(d=Sum("duration"))["d"]
+
+        return data
 
 
 class ProjectTagSerializer(HyperlinkedModelSerializer):
