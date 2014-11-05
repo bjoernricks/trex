@@ -15,7 +15,7 @@ from trex.parsers import PlainTextParser
 from trex.serializers import (
     ProjectSerializer, ProjectDetailSerializer, EntryDetailSerializer,
     TagDetailSerializer, ProjectEntrySerializer, ProjectTagSerializer,
-    ProjectUserSerializer,
+    ProjectUserSerializer, ProjectEntrySumsSerializer
 )
 from trex.utils import Zeiterfassung
 
@@ -119,3 +119,13 @@ class TagDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Tag.objects.all()
     serializer_class = TagDetailSerializer
+
+
+class ProjectEntrySumsAPIView(ProjectMixin, generics.ListAPIView):
+
+    serializer_class = ProjectEntrySumsSerializer
+    filter_class = filters.EntryFilter
+
+    def get_queryset(self):
+        project = self.get_project()
+        return project.entries.all()
