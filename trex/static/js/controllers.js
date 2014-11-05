@@ -77,11 +77,26 @@ trexControllers.controller('ProjectDetailCtrl',
         $scope.project = Project.get({projectId: $routeParams.id});
         $scope.entries = Project.entries({projectId: $routeParams.id});
 
-        $scope.entries_tags = [];
-        $scope.entries_user_abbr = [];
+        $scope.search = {};
+
+        $scope.search.entries_tags = [];
+        $scope.search.entries_user_abbr = [];
 
         $scope.order = "id";
         $scope.orderreverse = false;
+
+        $scope.entries_chart = {};
+        $scope.entries_chart["data"] = [];
+        $scope.entries_chart["types"] = ["Line", "Bar", "Radar"];
+        $scope.entries_chart["current_type"] = 0;
+        $scope.entries_chart["series"] = ["Duration"];
+        $scope.entries_chart["labels"] = [];
+        $scope.entries_chart["loaded"] = false;
+        $scope.entries_chart["type"] = "Line";
+        $scope.entries_chart["options"] = {
+            animation: false,
+            pointHitDetectionRadius: 5
+        };
 
         $scope.$watch('project.$resolved', function(value) {
             $scope.project_loading = !value;
@@ -112,39 +127,43 @@ trexControllers.controller('ProjectDetailCtrl',
                     {
                         projectId: $routeParams.id,
                         from_date: $scope.dateToString(
-                            $scope.entries_from_date),
+                            $scope.search.entries_from_date),
                         to_date: $scope.dateToString(
-                            $scope.entries_to_date),
-                        state: $scope.entries_state,
-                        user_abbr: $scope.tagList($scope.entries_user_abbr,
-                            "user_abbr"),
-                        tag: $scope.tagList($scope.entries_tags, "name"),
-                        tag_like: $scope.entries_tags_like,
-                        description: $scope.entries_description,
-                        workpackage_like: $scope.entries_workpackage
+                            $scope.search.entries_to_date),
+                        state: $scope.search.entries_state,
+                        user_abbr: $scope.tagList(
+                            $scope.search.entries_user_abbr, "user_abbr"),
+                        tag: $scope.tagList($scope.search.entries_tags, "name"),
+                        tag_like: $scope.search.entries_tags_like,
+                        description: $scope.search.entries_description,
+                        workpackage_like: $scope.search.entries_workpackage
                     }
                 );
             $scope.entries_loading = true;
+
+            if ($scope.entries_chart.loaded) {
+                $scope.loadChartData();
+            }
         };
 
         $scope.addSearchTag = function(tag) {
-            for (var i = 0; i < $scope.entries_tags.length; i++) {
-                var value = $scope.entries_tags[i];
+            for (var i = 0; i < $scope.search.entries_tags.length; i++) {
+                var value = $scope.search.entries_tags[i];
                 if (value.name == tag) {
                     return;
                 }
             }
-            $scope.entries_tags.push({'name': tag});
+            $scope.search.entries_tags.push({'name': tag});
         };
 
         $scope.addUser = function(user) {
-            for (var i = 0; i < $scope.entries_user_abbr.length; i++) {
-                var value = $scope.entries_user_abbr[i];
+            for (var i = 0; i < $scope.search.entries_user_abbr.length; i++) {
+                var value = $scope.search.entries_user_abbr[i];
                 if (value.user_abbr == user.user_abbr) {
                     return;
                 }
             }
-            $scope.entries_user_abbr.push(user);
+            $scope.search.entries_user_abbr.push(user);
         };
 
         $scope.completeTag = function(query) {
@@ -251,6 +270,49 @@ trexControllers.controller('ProjectDetailCtrl',
             var yyyy = date.getFullYear();
 
             return dd + '.' + mm + '.' + yyyy;
+        };
+
+        $scope.loadChartData = function() {
+            Project.entries_sums(
+                {
+                    projectId: $routeParams.id,
+                    from_date: $scope.dateToString(
+                        $scope.search.entries_from_date),
+                    to_date: $scope.dateToString(
+                        $scope.search.entries_to_date),
+                    state: $scope.search.entries_state,
+                    user_abbr: $scope.tagList(
+                        $scope.search.entries_user_abbr, "user_abbr"),
+                    tag: $scope.tagList($scope.search.entries_tags, "name"),
+                    tag_like: $scope.search.entries_tags_like,
+                    description: $scope.search.entries_description,
+                    workpackage_like: $scope.search.entries_workpackage
+                }
+            ).$promise.then(function(data) {
+
+                var chart_data = [];
+                $scope.entries_chart.data = [chart_data];
+                $scope.entries_chart.labels = [];
+                $scope.entries_chart.loaded = true;
+
+                var workpackage_sums = data["workpackage_sums"];
+                for (var i = 0; i < workpackage_sums.length; i++) {
+                    var sum = workpackage_sums[i];
+                    chart_data.push(sum["duration"]);
+                    $scope.entries_chart.labels.push(sum["name"]);
+                }
+            });
+
+        };
+
+        $scope.entriesChartToggle = function() {
+            $scope.entries_chart.current_type += 1;
+            if ($scope.entries_chart.current_type >=
+                    $scope.entries_chart.types.length) {
+                        $scope.entries_chart.current_type = 0;
+            }
+            $scope.entries_chart.type =
+               $scope.entries_chart.types[$scope.entries_chart.current_type];
         };
 
     }

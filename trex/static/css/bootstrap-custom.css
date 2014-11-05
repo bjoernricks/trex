@@ -2,3 +2,12 @@
     margin-left: 1px;
     margin-right: 1px;
 }
+
+.tab-pane {
+    padding-top: 1em;
+}
+
+.chart {
+    width: 500px;
+    height: 500px;
+}
