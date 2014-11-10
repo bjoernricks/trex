@@ -135,7 +135,6 @@ trexControllers.controller('ProjectDetailCtrl',
                         workpackage_like: $scope.search.entries_workpackage
                     }
                 );
-            $scope.entries_loading = true;
 
             if ($scope.entries_chart.loaded) {
                 $scope.loadChartData();
