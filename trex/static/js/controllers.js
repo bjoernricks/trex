@@ -152,7 +152,7 @@ trexControllers.controller('ProjectDetailCtrl',
             $scope.search.entries_tags.push({'name': tag});
         };
 
-        $scope.addUser = function(user) {
+        $scope.addSearchUser = function(user) {
             for (var i = 0; i < $scope.search.entries_user_abbr.length; i++) {
                 var value = $scope.search.entries_user_abbr[i];
                 if (value.user_abbr == user.user_abbr) {
