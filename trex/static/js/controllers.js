@@ -83,14 +83,14 @@ trexControllers.controller('ProjectDetailCtrl',
         $scope.orderreverse = false;
 
         $scope.entries_chart = {};
-        $scope.entries_chart["data"] = [];
-        $scope.entries_chart["types"] = ["Line", "Bar", "Radar"];
-        $scope.entries_chart["current_type"] = 0;
-        $scope.entries_chart["series"] = ["Duration"];
-        $scope.entries_chart["labels"] = [];
-        $scope.entries_chart["loaded"] = false;
-        $scope.entries_chart["type"] = "Line";
-        $scope.entries_chart["options"] = {
+        $scope.entries_chart.data = [];
+        $scope.entries_chart.types = ["Line", "Bar", "Radar"];
+        $scope.entries_chart.current_type = 0;
+        $scope.entries_chart.series = ["Duration"];
+        $scope.entries_chart.labels = [];
+        $scope.entries_chart.loaded = false;
+        $scope.entries_chart.type = "Line";
+        $scope.entries_chart.options = {
             animation: false,
             pointHitDetectionRadius: 5
         };
