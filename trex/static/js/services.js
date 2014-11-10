@@ -39,10 +39,11 @@ trexServices.factory('Project', ['$resource', 'Conf',
                      url: Conf.apiBase + '/projects/:projectId/users/',
                      params: {projectId: '@id'}
                     },
-            entries_sums: {method: 'GET',
-                       url: Conf.apiBase + '/projects/:projectId/entries/sums/',
-                       params: {projectId: '@id'}
-                      }
+             entries_sums: {
+                 method: 'GET',
+                 url: Conf.apiBase + '/projects/:projectId/entries/sums/',
+                 params: {projectId: '@id'}
+             }
            }
         );
     }
