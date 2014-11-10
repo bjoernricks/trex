@@ -228,7 +228,7 @@ trexControllers.controller('ProjectDetailCtrl',
             $scope.opened_to = true;
         };
 
-        $scope.dateToString = Utils.dateToString
+        $scope.dateToString = Utils.dateToString;
         $scope.loadChartData = function() {
             Project.entries_sums(
                 {
