@@ -68,9 +68,6 @@ trexControllers.controller('ProjectCreateCtrl', ['$scope', '$location',
 trexControllers.controller('ProjectDetailCtrl',
     ['$scope', '$routeParams', 'Project', '$http', 'Conf',
     function($scope, $routeParams, Project, $http, Conf) {
-        $scope.project_loading = true;
-        $scope.entries_loading = true;
-
         $scope.succes = false;
         $scope.error = false;
 
@@ -97,14 +94,6 @@ trexControllers.controller('ProjectDetailCtrl',
             animation: false,
             pointHitDetectionRadius: 5
         };
-
-        $scope.$watch('project.$resolved', function(value) {
-            $scope.project_loading = !value;
-        });
-
-        $scope.$watch('entries.$resolved', function(value) {
-            $scope.entries_loading = !value;
-        });
 
         $scope.setOrder = function(name) {
             if (name == $scope.order) {

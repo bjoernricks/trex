@@ -24,7 +24,7 @@
                 </dl>
             </div>
 
-            <div ng-show="!project.name && !project_loading">
+            <div ng-show="!project.name && project.$resolved">
                 Unkown project
             </div>
         </div>
@@ -233,7 +233,7 @@
 
             <h3 id="entries">Entries</h3>
 
-            <div ng-show="!entries.length && !entries_loading">
+            <div ng-show="!entries.length && entries.$resolved">
                 No entries evailable.
             </div>
 
