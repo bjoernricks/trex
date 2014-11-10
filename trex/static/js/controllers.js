@@ -66,8 +66,8 @@ trexControllers.controller('ProjectCreateCtrl', ['$scope', '$location',
 ]);
 
 trexControllers.controller('ProjectDetailCtrl',
-    ['$scope', '$routeParams', 'Project', '$http', 'Conf',
-    function($scope, $routeParams, Project, $http, Conf) {
+    ['$scope', '$routeParams', 'Project', '$http', 'Conf', 'Utils',
+    function($scope, $routeParams, Project, $http, Conf, Utils) {
         $scope.succes = false;
         $scope.error = false;
 
@@ -241,26 +241,7 @@ trexControllers.controller('ProjectDetailCtrl',
             $scope.opened_to = true;
         };
 
-        $scope.dateToString = function(date) {
-            if (!(date instanceof Date)) {
-                return date;
-            }
-
-            var dd = date.getDate();
-            if (dd < 10) {
-                dd = '0' + dd;
-            }
-
-            var mm = date.getMonth() + 1;
-            if (mm < 10) {
-                mm = '0' + mm;
-            }
-
-            var yyyy = date.getFullYear();
-
-            return dd + '.' + mm + '.' + yyyy;
-        };
-
+        $scope.dateToString = Utils.dateToString
         $scope.loadChartData = function() {
             Project.entries_sums(
                 {
