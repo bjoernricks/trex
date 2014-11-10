@@ -68,8 +68,15 @@ trexControllers.controller('ProjectCreateCtrl', ['$scope', '$location',
 trexControllers.controller('ProjectDetailCtrl',
     ['$scope', '$routeParams', 'Project', '$http', 'Conf', 'Utils',
     function($scope, $routeParams, Project, $http, Conf, Utils) {
-        $scope.succes = false;
-        $scope.error = false;
+        $scope.alerts = [];
+
+        $scope.addAlert = function(type, msg) {
+            $scope.alerts.push({type: type, msg: msg });
+        };
+
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
 
         $scope.project = Project.get({projectId: $routeParams.id});
         $scope.entries = Project.entries({projectId: $routeParams.id});
@@ -180,7 +187,6 @@ trexControllers.controller('ProjectDetailCtrl',
         });
 
         $scope.uploadFiles = function() {
-            $scope.resetDialogs();
              var fileReader = new FileReader();
              fileReader.onload = function(e) {
                  console.log(e.target.result);
@@ -193,38 +199,20 @@ trexControllers.controller('ProjectDetailCtrl',
                  }).
                  success(function(data, status, headers, config) {
                      $scope.zeiterfassung_files = [];
-                     $scope.showSuccess(
+                     $scope.addAlert("success",
                          'Upload successfull. ' + data['written'].length +
                          ' new entries loaded. ' + data['skipped'].length +
                          ' entries skipped.');
                      $scope.searchEntries();
                  }).
                  error(function(data, status, headers, config) {
-                     $scope.showError("Upload failed", data);
+                     $scope.addAlert("error", "Upload failed");
                  });
              };
              for (var i = 0; i < $scope.zeiterfassung_files.length; i++) {
                 fileReader.readAsBinaryString($scope.zeiterfassung_files[i]);
              }
 
-        };
-
-        $scope.resetDialogs = function() {
-            $scope.error = false;
-            $scope.success = false;
-        };
-
-        $scope.showSuccess = function(message) {
-            $scope.success = true;
-            $scope.success_message = message;
-        };
-
-        $scope.showError = function(message, data) {
-            $scope.error = true;
-            $scope.error_message = message;
-            if (data) {
-                $("#error-frame").html(data);
-            }
         };
 
         $scope.openFromDatepicker = function($event) {
