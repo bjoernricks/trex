@@ -56,3 +56,29 @@ trexServices.factory('Entry', ['$resource', 'Conf',
         );
     }
 ]);
+
+trexServices.factory('Utils', function() {
+    var dateToString = function(date) {
+        if (!(date instanceof Date)) {
+            return date;
+        }
+
+        var dd = date.getDate();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        var mm = date.getMonth() + 1;
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        var yyyy = date.getFullYear();
+
+        return dd + '.' + mm + '.' + yyyy;
+    };
+
+    return {
+        'dateToString': dateToString
+    };
+});
