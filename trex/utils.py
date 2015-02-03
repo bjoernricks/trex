@@ -5,6 +5,7 @@
 # See LICENSE comming with the source of 'trex' for details.
 #
 
+import math
 import re
 
 from datetime import date, timedelta
@@ -134,3 +135,18 @@ class Zeiterfassung(object):
         if entry:
             # add the last parsed entry
             yield entry
+
+
+def workduration(value):
+    m = value / 60
+    h = math.floor(m / 60)
+    m2 = m % 60
+    wd = 8
+    d = 0
+
+    if (h >= wd):
+        oh = h
+        d = math.floor(oh / wd)
+        h = oh % wd
+
+    return "%s days %s:%s h" % (d, h, m2)
