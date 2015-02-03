@@ -18,8 +18,8 @@
                     {{project.created|date}}
                     </dd>
                     <dt>Duration</dt>
-                    <dd>
-                    {{entries|sumByKey:'duration'|workduration}}
+                    <dd ng-click="durationKeyToggle()">
+                    {{entries|sumByKey:'duration'|workduration:durKey}}
                     </dd>
                 </dl>
             </div>
