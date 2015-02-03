@@ -28,11 +28,26 @@ module.filter('duration', function() {
 });
 
 module.filter('workduration', function() {
-    return function(input) {
-        var minutes = input / 60;
-        var hours = Math.floor(minutes / 60);
-        var minutes = minutes % 60;
+    return function(input, key) {
         var ret = "";
+
+        if (key == 'seconds') {
+            return ret + input + " s";
+        }
+
+        var minutes = input / 60;
+
+        if (key == 'minutes') {
+            return ret + minutes + " m";
+        }
+
+        var hours = Math.floor(minutes / 60);
+
+        if (key == 'hours') {
+            return ret + hours + " h";
+        }
+
+        var minutes = minutes % 60;
         var work_day_hours = 8;
 
         if (hours >= work_day_hours) {
