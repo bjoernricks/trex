@@ -102,6 +102,10 @@ trexControllers.controller('ProjectDetailCtrl',
             pointHitDetectionRadius: 5
         };
 
+        $scope.durKeys = ['days', 'seconds', 'minutes', 'hours'];
+        $scope.durKeyIndex = 0;
+        $scope.durKey = $scope.durKeys[$scope.durKeyIndex];
+
         $scope.setOrder = function(name) {
             if (name == $scope.order) {
                 $scope.orderreverse = !$scope.orderreverse;
@@ -270,6 +274,14 @@ trexControllers.controller('ProjectDetailCtrl',
             }
             $scope.entries_chart.type =
                $scope.entries_chart.types[$scope.entries_chart.current_type];
+        };
+
+        $scope.durationKeyToggle = function() {
+            $scope.durKeyIndex += 1;
+            if ($scope.durKeyIndex >= $scope.durKeys.length) {
+                $scope.durKeyIndex = 0;
+            }
+            $scope.durKey = $scope.durKeys[$scope.durKeyIndex];
         };
 
     }
